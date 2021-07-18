@@ -1,7 +1,12 @@
+import Carousel from "./components/Carousel";
+import MarketPlace from "./components/MarketPlace";
+import Navbar from "./components/Navbar";
 function App() {
 	return (
 		<div className="App">
-			<h1>Ameya Jangam</h1>
+			<Navbar />
+			<Carousel />
+			<MarketPlace />
 		</div>
 	);
 }
