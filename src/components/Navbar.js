@@ -4,8 +4,9 @@ import { ReactComponent as UserIcon } from "../icons/signin.svg";
 import { ReactComponent as SearchIcon } from "../icons/search.svg";
 import { ReactComponent as LogOutIcon } from "../icons/logout.svg";
 import LoginModal from "./LoginModal";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Search from "../pages/Search";
 const Navbar = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [userName, setUserName] = useState("Anon");
@@ -31,15 +32,16 @@ const Navbar = () => {
 	return (
 		<nav className="mt-2 mb-2 flex items-center justify-between">
 			<div className="w-44  md:ml-1">
-				<Logo />
+				<Link to="/">
+					<Logo />
+				</Link>
 			</div>
 			<div className="ml-9 gap-2 md:gap-10 flex mr-10  text-sm md:text-base">
 				<p>Hello, {userName}!</p>
 				<div className="flex gap-2">
 					<SearchIcon />
-					<a href="#">Search</a>
+					<Link to="/search">Search</Link>
 				</div>
-
 				<div id="sign-in" className="flex gap-2">
 					<UserIcon />
 					<a
@@ -60,7 +62,6 @@ const Navbar = () => {
 					<a href="http://localhost:8000/logout">Logout</a>
 				</div>
 			</div>
-
 			{showModal && <LoginModal updateState={(value) => setShowModal(value)} />}
 		</nav>
 	);
