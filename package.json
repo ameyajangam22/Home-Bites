@@ -16,8 +16,10 @@
 		"start": "craco start",
 		"build": "craco build",
 		"test": "craco test",
+		"server": "nodemon ./server/server.js",
 		"eject": "react-scripts eject"
 	},
+	"proxy": "http://localhost:8000",
 	"eslintConfig": {
 		"extends": [
 			"react-app",
@@ -40,5 +42,17 @@
 		"autoprefixer": "^9.8.6",
 		"postcss": "^7.0.36",
 		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4"
-	}
+	},
+	"description": "A Food Ordering App based on MERN",
+	"main": "craco.config.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ameyajangam22/Home-Bites.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ameyajangam22/Home-Bites/issues"
+	},
+	"homepage": "/"
 }
