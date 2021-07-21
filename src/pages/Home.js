@@ -1,11 +1,11 @@
-import Carousel from "../components/Carousel";
-import MarketPlace from "../components/MarketPlace";
-import Navbar from "../components/Navbar";
+import Carousel from "../components/User/Carousel";
+import MarketPlace from "../components/User/MarketPlace";
+import Navbar from "../components/User/Navbar";
 
 const Home = () => {
 	return (
 		<>
-			<Navbar />
+			<Navbar type="user" />
 			<Carousel />
 			<MarketPlace />
 		</>

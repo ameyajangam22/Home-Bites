@@ -1,4 +1,4 @@
-import Card from "./Common/Card";
+import Card from "../Common/Card";
 
 const MarketPlace = () => {
 	return (
