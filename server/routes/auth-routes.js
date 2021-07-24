@@ -7,7 +7,7 @@ router.get(
 );
 
 const isLoggedIn = (req, res, next) => {
-	console.log("req.user", req.user);
+	// console.log("req.user", req.user);
 	if (req.user) {
 		next();
 	} else {
@@ -16,7 +16,7 @@ const isLoggedIn = (req, res, next) => {
 	}
 };
 router.get("/me", (req, res) => {
-	console.log("mai kya bhej raha hu", req.user);
+	// console.log("mai kya bhej raha hu", req.user);
 	res.json({ user: req.user });
 });
 router.get(
@@ -32,9 +32,13 @@ router.get(
 );
 
 router.get("/logout", (req, res) => {
-	req.session = null;
+	// req.session = null;
 	req.logout();
-	res.redirect("http://localhost:3000");
+	req.session.destroy((err) => {
+		res.clearCookie("connect.sid");
+		// Don't redirect, just print text
+		res.redirect("http://localhost:3000");
+	});
 });
 
 module.exports = router;

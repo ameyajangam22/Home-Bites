@@ -23,6 +23,12 @@ const seller = new Schema({
 		type: Number,
 		required: true,
 	},
+	restaurantPic: {
+		type: String,
+	},
+	cloudinaryId: {
+		type: String,
+	},
 	menu: [
 		{
 			category: {

@@ -30,7 +30,10 @@ const LoginModal = (props) => {
 							className=" w-4/5 flex p-1 bg-blue-400 hover:bg-blue-500 transition ease-in-out duration-500 items-center absolute h-18 md:h-20 text-xl shadow-lg rounded-md"
 						>
 							<div className="bg-white  rounded-md p-3 flex justify-center items-center h-full overflow-hidden">
-								<img src="https://img.icons8.com/color/48/000000/google-logo.png" />
+								<img
+									src="https://img.icons8.com/color/48/000000/google-logo.png"
+									alt="google-png"
+								/>
 							</div>
 							<div className="text-white ml-10">Sign In</div>
 						</a>

@@ -4,15 +4,18 @@ import { ReactComponent as UserIcon } from "../../icons/signin.svg";
 import { ReactComponent as SearchIcon } from "../../icons/search.svg";
 import { ReactComponent as LogOutIcon } from "../../icons/logout.svg";
 import LoginModal from "./LoginModal";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 const Navbar = ({ type }) => {
+	const history = useHistory();
 	const [showModal, setShowModal] = useState(false);
 	const [userName, setUserName] = useState("Anon");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [showLinks, setShowLinks] = useState(true);
+	const [goSeller, setGoSeller] = useState(true);
+
 	useEffect(() => {
-		if (type == "seller") {
+		if (type === "seller") {
 			setShowLinks(false);
 		} else {
 			setShowLinks(true);
@@ -32,8 +35,8 @@ const Navbar = ({ type }) => {
 					setUserName(firstName);
 					const signIn = document.getElementById("sign-in");
 					const logOut = document.getElementById("log-out");
-					signIn.classList.add("hidden");
-					logOut.classList.remove("hidden");
+					if (signIn) signIn.classList.add("hidden");
+					if (logOut) logOut.classList.remove("hidden");
 				}
 			});
 	}, []);
@@ -50,6 +53,11 @@ const Navbar = ({ type }) => {
 					className="ml-9 gap-2 md:gap-10 flex mr-10  text-sm md:text-base"
 				>
 					<p>Hello, {userName}!</p>
+					<div className="flex gap-2">
+						<UserIcon />
+						{/* <button onClick={handleSeller}>Become Seller</button> */}
+						<Link to="/sellerSignup">Become Seller</Link>
+					</div>
 					<div className="flex gap-2">
 						<SearchIcon />
 						<Link to="/search">Search</Link>

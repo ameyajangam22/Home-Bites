@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const URL =
-	"mongodb+srv://Ameya:Ameya2001@homebites.twdro.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const dotenv = require("dotenv");
+dotenv.config();
+const URL = process.env.MONGO_URI;
 
 module.exports = {
 	db: async () => {
@@ -9,6 +10,7 @@ module.exports = {
 				useNewUrlParser: true,
 				useUnifiedTopology: true,
 				useFindAndModify: false,
+				useCreateIndex: true,
 			});
 			console.log("db connected");
 		} catch (err) {
