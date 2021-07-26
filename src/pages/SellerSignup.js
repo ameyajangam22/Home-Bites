@@ -75,7 +75,7 @@ const SellerSignup = () => {
 					return resp.json();
 				})
 				.then((data) => {
-					console.log("Pic uploaded", data);
+					// console.log("Pic uploaded", data);
 
 					let cloudinaryId = data.public_id;
 					let img_url = data.secure_url;

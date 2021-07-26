@@ -38,8 +38,19 @@ const seller = new Schema({
 				},
 				dishes: [
 					{
-						type: Schema.Types.ObjectId,
-						ref: "Dish",
+						// type: Schema.Types.ObjectId,
+						// ref: "Dish",
+						food: {
+							foodName: {
+								type: String,
+							},
+							foodPrice: {
+								type: String,
+							},
+							isVeg: {
+								type: Boolean,
+							},
+						},
 					},
 				],
 			},

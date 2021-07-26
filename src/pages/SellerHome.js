@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const SellerHome = () => {
 	const history = useHistory();
 	const [userName, setUserName] = useState("Seller");
+	const [restaurantPic, setRestaurantPic] = useState("");
 	useEffect(async () => {
 		const response = await fetch("/meSeller");
 		const data = await response.json();
@@ -12,6 +13,7 @@ const SellerHome = () => {
 		if (data.message == "ok") {
 			console.log("datahere");
 			setUserName(data.data.sellerName);
+			setRestaurantPic(data.data.restaurantPic);
 			console.log("data", data);
 		} else {
 			console.log("here");
@@ -24,8 +26,16 @@ const SellerHome = () => {
 	return (
 		<>
 			<SellerNav userName={userName} />
-			<h3>Seller Home</h3>
-			<a href="http://localhost:8000/seller/logout">Logout</a>
+			{/* console.log(restaurantPic); */}
+			<div>
+				<img
+					className="aspect-w-16 aspect-h-9 w-44 md:w-80"
+					src={restaurantPic}
+					alt="rest-pic"
+				/>
+				<h1>Your Menu</h1>
+				<div className="bg-red-200 h-16"></div>
+			</div>
 		</>
 	);
 };

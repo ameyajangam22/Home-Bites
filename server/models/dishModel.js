@@ -6,18 +6,12 @@ const dish = new Schema({
 		type: String,
 		required: true,
 	},
-	dishPrice: {
-		type: Number,
-		required: true,
-	},
-	dishTags: [
+	sellers: [
 		{
-			tag: String,
+			type: Schema.types.ObjectId,
+			ref: "Seller",
 		},
 	],
-	dishPic: {
-		type: String,
-	},
 });
 
 module.exports = mongoose.model("Dish", dish);

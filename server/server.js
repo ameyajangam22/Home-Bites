@@ -3,6 +3,7 @@ const app = express();
 var cors = require("cors");
 const cookieSession = require("cookie-session");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const User = require("./models/userModel");
 const dbConnection = require("./config/connectdb");
@@ -25,8 +26,11 @@ app.use(
 		rolling: true, // <-- Set `rolling` to `true`
 		cookie: {
 			httpOnly: true,
-			maxAge: 1 * 60 * 60 * 1000,
+			maxAge: 8 * 60 * 60 * 1000,
 		},
+		store: MongoStore.create({
+			mongoUrl: process.env.MONGO_URI,
+		}),
 	})
 );
 
