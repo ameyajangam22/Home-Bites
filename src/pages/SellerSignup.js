@@ -3,6 +3,7 @@ import Navbar from "../components/User/Navbar";
 import { ReactComponent as Logo } from "../logo/hb-logo.svg";
 import { ReactComponent as CloudIcon } from "../icons/cloud-upload.svg";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import scrollTo from "../scrollanimate";
 
 const SellerSignup = () => {
@@ -123,9 +124,19 @@ const SellerSignup = () => {
 			? setSubmitDisabled(false)
 			: setSubmitDisabled(true);
 	}, [seller, media]);
+
+	useEffect(async () => {
+		const response = await fetch("/me");
+		const data = await response.json();
+		console.log("data recieved", data);
+		if (data.user) {
+			toast("Illegal Logout");
+			history.push("/");
+		}
+	}, []);
 	return (
 		<>
-			<Navbar type="seller" />
+			<Navbar type="seller" pg="signin" />
 			<h2 className="text-2xl text-center mb-5 font-bold">
 				Become a Seller Today!
 			</h2>

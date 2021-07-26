@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Navbar from "../components/User/Navbar";
 import { ReactComponent as Logo } from "../logo/hb-logo.svg";
@@ -23,11 +23,13 @@ const SellerLogin = () => {
 		if (data.message == "ok") {
 			// do something like save session in backend
 			// redirect to seller Dashboard
+			localStorage.setItem("isSellerAuthenticated", "true");
 			history.push("/seller");
 		} else {
 			// we will have to set some error like the
 			// email or password is incorrect
 			setErrorText(data.message);
+			localStorage.setItem("isSellerAuthenticated", "false");
 			errordiv.classList.remove("hidden");
 		}
 	};
@@ -39,9 +41,12 @@ const SellerLogin = () => {
 			setPassword(value);
 		}
 	};
+	useEffect(() => {
+		localStorage.setItem("isSellerAuthenticated", "false");
+	}, []);
 	return (
 		<>
-			<Navbar type="seller" />
+			<Navbar type="seller" pg="login" />
 			<h2 className="text-2xl text-center mb-2 font-bold">
 				Welcome Back, Seller!
 			</h2>

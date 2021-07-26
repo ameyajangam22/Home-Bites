@@ -4,7 +4,8 @@ const router = express.Router();
 const Seller = require("../models/sellerModel");
 
 router.get("/meSeller", (req, res) => {
-	res.json(req.session.seller);
+	if (req.session.seller) res.json({ data: req.session.seller, message: "ok" });
+	else res.json({ message: "not ok" });
 });
 router.post("/authLogin", upload.none(), (req, res) => {
 	//console.log("formdata", req.body);

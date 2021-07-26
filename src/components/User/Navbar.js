@@ -3,20 +3,23 @@ import { ReactComponent as CartIcon } from "../../icons/cart.svg";
 import { ReactComponent as UserIcon } from "../../icons/signin.svg";
 import { ReactComponent as SearchIcon } from "../../icons/search.svg";
 import { ReactComponent as LogOutIcon } from "../../icons/logout.svg";
+import { ReactComponent as LogInIcon } from "../../icons/login.svg";
 import LoginModal from "./LoginModal";
+
 import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-const Navbar = ({ type }) => {
+const Navbar = ({ type, pg }) => {
 	const history = useHistory();
 	const [showModal, setShowModal] = useState(false);
 	const [userName, setUserName] = useState("Anon");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [showLinks, setShowLinks] = useState(true);
-	const [goSeller, setGoSeller] = useState(true);
-
+	const [sellerLogin, setSellerLogin] = useState(false);
 	useEffect(() => {
 		if (type === "seller") {
 			setShowLinks(false);
+			if (pg == "login") setSellerLogin(true);
+			else setSellerLogin(false);
 		} else {
 			setShowLinks(true);
 		}
@@ -33,10 +36,13 @@ const Navbar = ({ type }) => {
 					let str = data.user.displayName;
 					const [firstName, secondName] = str.split(" ");
 					setUserName(firstName);
+					localStorage.setItem("isUserLoggedOut", false);
 					const signIn = document.getElementById("sign-in");
 					const logOut = document.getElementById("log-out");
 					if (signIn) signIn.classList.add("hidden");
 					if (logOut) logOut.classList.remove("hidden");
+				} else {
+					localStorage.setItem("isUserLoggedOut", true);
 				}
 			});
 	}, []);
@@ -63,7 +69,7 @@ const Navbar = ({ type }) => {
 						<Link to="/search">Search</Link>
 					</div>
 					<div id="sign-in" className="flex gap-2">
-						<UserIcon />
+						<LogInIcon />
 						<a
 							href="#"
 							onClick={() => {
@@ -80,6 +86,23 @@ const Navbar = ({ type }) => {
 					<div id="log-out" className="flex gap-2 hidden">
 						<LogOutIcon />
 						<a href="http://localhost:8000/logout">Logout</a>
+					</div>
+				</div>
+			)}
+			{!showLinks && (
+				<div className="ml-9 gap-2 md:gap-10 flex mr-10  text-sm md:text-base">
+					<div className="flex gap-2">
+						{!sellerLogin ? (
+							<>
+								<LogInIcon />
+								<a href="/sellerLogin">Seller Login</a>
+							</>
+						) : (
+							<>
+								<UserIcon />
+								<a href="/sellerSignup">Seller Signup</a>
+							</>
+						)}
 					</div>
 				</div>
 			)}
