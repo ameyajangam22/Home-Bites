@@ -4,10 +4,10 @@ import { ReactComponent as UserIcon } from "../../icons/signin.svg";
 import { ReactComponent as SearchIcon } from "../../icons/search.svg";
 import { ReactComponent as LogOutIcon } from "../../icons/logout.svg";
 import { ReactComponent as LogInIcon } from "../../icons/login.svg";
-import LoginModal from "./LoginModal";
-
+import { ReactComponent as HamBurgerIcon } from "../../icons/hamBurger.svg";
 import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Modal from "../Common/Modal";
 const Navbar = ({ type, pg }) => {
 	const history = useHistory();
 	const [showModal, setShowModal] = useState(false);
@@ -47,7 +47,7 @@ const Navbar = ({ type, pg }) => {
 			});
 	}, []);
 	return (
-		<nav className="shadow-md mt-2 mb-2 flex items-center justify-between">
+		<nav className="shadow-md mt-2 mb-2 overflow-x-hidden flex items-center justify-between">
 			<div className="w-44  md:ml-1">
 				<Link to="/">
 					<Logo />
@@ -59,14 +59,14 @@ const Navbar = ({ type, pg }) => {
 					className="ml-9 gap-2 md:gap-10 flex mr-10  text-sm md:text-base"
 				>
 					<p>Hello, {userName}!</p>
-					<div className="flex gap-2">
-						<UserIcon />
-						{/* <button onClick={handleSeller}>Become Seller</button> */}
-						<Link to="/sellerSignup">Become Seller</Link>
-					</div>
+
 					<div className="flex gap-2">
 						<SearchIcon />
 						<Link to="/search">Search</Link>
+					</div>
+					<div className="flex gap-2">
+						<UserIcon />
+						<Link to="/sellerSignup">Become Seller</Link>
 					</div>
 					<div id="sign-in" className="flex gap-2">
 						<LogInIcon />
@@ -106,7 +106,26 @@ const Navbar = ({ type, pg }) => {
 					</div>
 				</div>
 			)}
-			{showModal && <LoginModal updateState={(value) => setShowModal(value)} />}
+			{showModal && (
+				<Modal
+					title="Sign in"
+					showModal={showModal}
+					onChange={(value) => setShowModal(value)}
+				>
+					<a
+						href="http://localhost:8000/google"
+						className=" w-4/5 flex p-1 bg-blue-400 hover:bg-blue-500 transition ease-in-out duration-500 items-center absolute h-18 md:h-20 text-xl shadow-lg rounded-md"
+					>
+						<div className="bg-white  rounded-md p-3 flex justify-center items-center h-full overflow-hidden">
+							<img
+								src="https://img.icons8.com/color/48/000000/google-logo.png"
+								alt="google-png"
+							/>
+						</div>
+						<div className="text-white ml-10">Sign In</div>
+					</a>
+				</Modal>
+			)}
 		</nav>
 	);
 };

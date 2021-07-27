@@ -31,29 +31,25 @@ const seller = new Schema({
 	},
 	menu: [
 		{
-			category: {
-				categoryName: {
-					type: String,
-					default: "New Course",
-				},
-				dishes: [
-					{
-						// type: Schema.Types.ObjectId,
-						// ref: "Dish",
-						food: {
-							foodName: {
-								type: String,
-							},
-							foodPrice: {
-								type: String,
-							},
-							isVeg: {
-								type: Boolean,
-							},
-						},
-					},
-				],
+			categoryName: {
+				type: String,
+				default: "New Course",
 			},
+			dishes: [
+				{
+					// type: Schema.Types.ObjectId,
+					// ref: "Dish",
+					foodName: {
+						type: String,
+					},
+					foodPrice: {
+						type: Number,
+					},
+					isVeg: {
+						type: Boolean,
+					},
+				},
+			],
 		},
 	],
 });
