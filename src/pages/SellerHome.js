@@ -45,7 +45,9 @@ const SellerHome = () => {
 			// console.log("here");
 			localStorage.setItem("isSellerAuthenticated", "false");
 			history.push("/sellerLogin");
-			toast("Illegal login");
+			toast.error("Illegal login", {
+				draggable: true,
+			});
 		}
 		// console.log("did it ran??");
 		const response2 = await fetch("/getCategories");

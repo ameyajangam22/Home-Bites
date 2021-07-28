@@ -24,7 +24,9 @@ const ProtectedRoute = ({
 				if (isAuth == "true") {
 					return <Component />;
 				} else {
-					toast(customMessage);
+					toast.error(customMessage, {
+						draggable: true,
+					});
 					return (
 						<Redirect
 							to={{ pathname: redirectLink, state: { from: props.location } }}

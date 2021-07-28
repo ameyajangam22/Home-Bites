@@ -10,7 +10,9 @@ const SellerDish = (props) => {
 			method: "POST",
 			body: formData,
 		});
-		toast.success("Dish deleted");
+		toast.success("Dish deleted", {
+			draggable: true,
+		});
 		props.onChange();
 	};
 	return (

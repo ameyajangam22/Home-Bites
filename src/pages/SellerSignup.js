@@ -132,7 +132,9 @@ const SellerSignup = () => {
 		const data = await response.json();
 		console.log("data recieved", data);
 		if (data.user) {
-			toast("Illegal Logout");
+			toast.error("Illegal Logout", {
+				draggable: true,
+			});
 			history.push("/");
 		}
 	}, []);
