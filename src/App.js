@@ -13,6 +13,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import SellerPage from "./pages/SellerPage";
+
 function App() {
 	toast.configure();
 	const [isUserAuth, setIsUserAuth] = useState(true);
@@ -25,7 +27,7 @@ function App() {
 				<Route exact path="/" component={Home}></Route>
 				<Route exact path="/search" component={Search}></Route>
 				<Route exact path="/sellerLogin" component={SellerLogin}></Route>
-				{/* <Route exact path="/seller" component={SellerHome}></Route> */}
+				<Route exact path="/sellerPage" component={SellerPage}></Route>
 				<ProtectedRoute
 					exact
 					path="/sellerSignup"

@@ -11,6 +11,7 @@ const authRoutes = require("./routes/auth-routes");
 const sellerSignupRoutes = require("./routes/seller-signup-routes");
 const sellerLoginRoutes = require("./routes/seller-login-routes");
 const sellerRoutes = require("./routes/seller-routes");
+const userRoutes = require("./routes/user-routes");
 dbConnection.db();
 //body parser
 app.use(express.json());
@@ -48,6 +49,7 @@ app.use(authRoutes);
 app.use(sellerSignupRoutes);
 app.use(sellerLoginRoutes);
 app.use(sellerRoutes);
+app.use(userRoutes);
 //listen
 app.listen(8000, () => {
 	console.log("Server up and running");
