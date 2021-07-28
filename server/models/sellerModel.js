@@ -52,6 +52,19 @@ const seller = new Schema({
 			],
 		},
 	],
+	reviews: [
+		{
+			userName: {
+				type: String,
+			},
+			rating: {
+				type: mongoose.Decimal128,
+			},
+			review: {
+				type: String,
+			},
+		},
+	],
 });
 
 module.exports = mongoose.model("Seller", seller);
