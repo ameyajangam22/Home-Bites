@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import SellerPage from "./pages/SellerPage";
-
+import "cropperjs/dist/cropper.css";
 function App() {
 	toast.configure();
 	const [isUserAuth, setIsUserAuth] = useState(true);

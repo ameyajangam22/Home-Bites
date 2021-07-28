@@ -5,7 +5,7 @@ import { ReactComponent as CloudIcon } from "../icons/cloud-upload.svg";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import scrollTo from "../scrollanimate";
-
+import CropImageModal from "../components/User/CropImageModal";
 const SellerSignup = () => {
 	const history = useHistory();
 	let submitbtn;
@@ -26,6 +26,7 @@ const SellerSignup = () => {
 	const [fileUploadText, setfileUploadText] = useState(
 		"Upload your resto image"
 	);
+	const [showModal, setShowModal] = useState(false);
 	const { sname, semail, spassword, sphone, srname } = seller;
 
 	const previewFile = (file) => {
@@ -39,6 +40,7 @@ const SellerSignup = () => {
 	const handleFileChange = (e) => {
 		const file = e.target.files[0];
 		setMedia(file);
+		setShowModal(true);
 		previewFile(file);
 	};
 	const handleChange = (e) => {
@@ -214,9 +216,19 @@ const SellerSignup = () => {
 									className="aspect-w-16 aspect-h-9 w-80 md:w-80 m-auto shadow-lg "
 								/>
 							</div>
+							{/* <button
+								type="button"
+								className="bg-blue-500 text-white p-2 w-48 m-auto"
+								onClick={() => {
+									setShowModal(true);
+								}}
+							>
+								Crop Image
+							</button> */}
 						</>
 					)}
 					<button
+						type="submit"
 						id="submitbtn"
 						className="mt-5 disabled:opacity-50 p-2 rounded-md bg-yellow-200 w-4/5 md:w-80 m-auto"
 						disabled
@@ -225,6 +237,15 @@ const SellerSignup = () => {
 					</button>
 				</div>
 			</form>
+			{showModal && (
+				<CropImageModal
+					mediaPreview={previewSource}
+					setMedia={setMedia}
+					showModal={showModal}
+					setpreviewSource={setpreviewSource}
+					setShowModal={setShowModal}
+				/>
+			)}
 		</>
 	);
 };
