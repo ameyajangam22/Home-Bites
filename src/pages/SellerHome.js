@@ -40,7 +40,7 @@ const SellerHome = () => {
 			// console.log("datahere");
 			setUserName(data.data.sellerName);
 			setRestaurantPic(data.data.restaurantPic);
-			// console.log("data", data);
+			console.log("data", data);
 		} else {
 			// console.log("here");
 			localStorage.setItem("isSellerAuthenticated", "false");

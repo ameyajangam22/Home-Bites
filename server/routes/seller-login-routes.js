@@ -2,6 +2,7 @@ const express = require("express");
 const upload = require("../../utils/multer");
 const router = express.Router();
 const Seller = require("../models/sellerModel");
+const bcrypt = require("bcryptjs");
 
 router.get("/meSeller", (req, res) => {
 	if (req.session.seller) res.json({ data: req.session.seller, message: "ok" });
@@ -12,9 +13,10 @@ router.post("/authLogin", upload.none(), (req, res) => {
 	const emailId = req.body.semail;
 	const password = req.body.spassword;
 
-	Seller.findOne({ sellerEmail: emailId }, (error, seller) => {
+	Seller.findOne({ sellerEmail: emailId }, async (error, seller) => {
 		if (seller) {
-			if (password == seller.sellerPassword) {
+			const isPassword = await bcrypt.compare(password, seller.sellerPassword);
+			if (isPassword) {
 				req.session.seller = seller;
 				res.json({ message: "ok" });
 			} else {

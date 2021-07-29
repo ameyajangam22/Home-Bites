@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/User/Navbar";
 import { ReactComponent as Logo } from "../logo/hb-logo.svg";
 import { ReactComponent as CloudIcon } from "../icons/cloud-upload.svg";
+import { ReactComponent as GearIcon } from "../icons/gear-icon.svg";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import scrollTo from "../scrollanimate";
+import axios from "axios";
 import CropImageModal from "../components/User/CropImageModal";
+const myConfig = require("../myConfig");
+
 const SellerSignup = () => {
 	const history = useHistory();
 	let submitbtn;
@@ -26,6 +30,7 @@ const SellerSignup = () => {
 	const [fileUploadText, setfileUploadText] = useState(
 		"Upload your resto image"
 	);
+	const [buttonText, setButtonText] = useState("Submit");
 	const [showModal, setShowModal] = useState(false);
 	const { sname, semail, spassword, sphone, srname } = seller;
 
@@ -40,6 +45,7 @@ const SellerSignup = () => {
 	const handleFileChange = (e) => {
 		const file = e.target.files[0];
 		setMedia(file);
+		console.log("signupmedia", media);
 		setShowModal(true);
 		previewFile(file);
 	};
@@ -62,46 +68,46 @@ const SellerSignup = () => {
 		e.preventDefault();
 		// console.log(seller);
 		// console.log(media);
+		// console.log("submitmedia", media);
+		setSubmitDisabled(true);
+		setButtonText("Processing...");
+		document.getElementById("gear").classList.remove("invisible");
 		let formData = new FormData();
 
-		formData.append("restaurantPic", media);
+		formData.append("file", media);
+		formData.append("upload_preset", "ml_default");
+		formData.append("cloud_name", "home-bites");
+
 		const errorMsg = await fetch(`/emailVerify/${semail}`);
 		const data = await errorMsg.json();
 		await setErrorText(data.message);
 		if (data.message == "") {
-			fetch("/uploadPic", {
-				method: "POST",
-				body: formData,
-			})
-				.then((resp) => {
-					return resp.json();
-				})
-				.then((data) => {
-					// console.log("Pic uploaded", data);
+			const response = await axios.post(myConfig.CLOUDINARY_URL, formData);
 
-					let cloudinaryId = data.public_id;
-					let img_url = data.secure_url;
-					console.log("img_url", img_url);
+			if (response) {
+				console.log("Pic uploaded", response);
 
-					fetch("/addSeller", {
-						method: "POST",
-						body: JSON.stringify({
-							sname: sname,
-							semail: semail,
-							spassword: spassword,
-							sphone: sphone,
-							srname: srname,
-							cloudinaryId: cloudinaryId,
-							restaurantPic: img_url,
-						}),
-						headers: {
-							"content-type": "application/json",
-						},
-					}).then(() => {
-						history.push("/SellerLogin");
-					});
-				})
-				.catch((err) => console.log(err));
+				let cloudinaryId = response.data.public_id;
+				let img_url = response.data.secure_url;
+				// console.log("img_url", img_url);
+
+				const res = await fetch("/addSeller", {
+					method: "POST",
+					body: JSON.stringify({
+						sname: sname,
+						semail: semail,
+						spassword: spassword,
+						sphone: sphone,
+						srname: srname,
+						cloudinaryId: cloudinaryId,
+						restaurantPic: img_url,
+					}),
+					headers: {
+						"content-type": "application/json",
+					},
+				});
+				history.push("/SellerLogin");
+			}
 		} else {
 			scrollTo(100, 1000);
 		}
@@ -232,18 +238,23 @@ const SellerSignup = () => {
 					<button
 						type="submit"
 						id="submitbtn"
-						className="mt-5 disabled:opacity-50 p-2 rounded-md bg-yellow-200 w-4/5 md:w-80 m-auto"
+						className="flex justify-center items-center mt-5 disabled:opacity-50 p-2 rounded-md bg-yellow-200 w-4/5 md:w-80 m-auto"
 						disabled
 					>
-						Submit
+						<div id="gear" class="invisible">
+							<GearIcon />
+						</div>
+						{buttonText}
 					</button>
 				</div>
 			</form>
 			{showModal && (
 				<CropImageModal
 					mediaPreview={previewSource}
+					media={media}
 					setMedia={setMedia}
 					showModal={showModal}
+					handleFileChange={(val) => setMedia(val)}
 					setpreviewSource={setpreviewSource}
 					setShowModal={setShowModal}
 				/>

@@ -4,6 +4,7 @@ import Cropper from "react-cropper";
 
 const CropImageModal = ({
 	mediaPreview,
+	media,
 	setMedia,
 	setpreviewSource,
 	showModal,
@@ -12,7 +13,9 @@ const CropImageModal = ({
 	const [cropper, setCropper] = useState();
 	const getCropData = () => {
 		if (cropper) {
+			// console.log("media before crop", media);
 			setMedia(cropper.getCroppedCanvas().toDataURL());
+			// console.log("media after crop", media);
 			setpreviewSource(cropper.getCroppedCanvas().toDataURL());
 			cropper.destroy();
 		}
