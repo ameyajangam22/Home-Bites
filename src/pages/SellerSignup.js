@@ -224,15 +224,6 @@ const SellerSignup = () => {
 									className="aspect-w-16 aspect-h-9 w-80 md:w-80 m-auto shadow-lg "
 								/>
 							</div>
-							{/* <button
-								type="button"
-								className="bg-blue-500 text-white p-2 w-48 m-auto"
-								onClick={() => {
-									setShowModal(true);
-								}}
-							>
-								Crop Image
-							</button> */}
 						</>
 					)}
 					<button

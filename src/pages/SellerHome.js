@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { ReactComponent as PlusIcon } from "../icons/plus-icon.svg";
 import Modal from "../components/Common/Modal";
 import SellerCategory from "../components/User/SellerCategory";
+import CropImageModal from "../components/User/CropImageModal";
 
 const SellerHome = () => {
 	const history = useHistory();
@@ -15,9 +16,15 @@ const SellerHome = () => {
 	const [categories, setCategories] = useState([]);
 	const [catUpdate, setCatUpdate] = useState(false);
 	const [dishOrCatUpdate, setDishOrCatUpdate] = useState(false);
+	const [restaurantName, setRestaurantName] = useState("");
+	const [costForTwo, setCostForTwo] = useState(0);
+	const [showTwoModal, setShowTwoModal] = useState(false);
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setNewcategory(value);
+	};
+	const handleChange2 = (e) => {
+		setCostForTwo(e.target.value);
 	};
 	const handleSubmit = async () => {
 		console.log(newCategory);
@@ -32,14 +39,32 @@ const SellerHome = () => {
 		setShowModal(false);
 		setCatUpdate(!catUpdate);
 	};
+	const handleSubmitTwo = async () => {
+		console.log("yoo");
+		console.log(costForTwo);
+		const response = await fetch("/updateTwoPrice", {
+			method: "POST",
+			body: JSON.stringify({
+				twoPrice: costForTwo,
+			}),
+			headers: {
+				"content-type": "application/json",
+			},
+		});
+		const data = await response.json();
+		setShowTwoModal(false);
+	};
+
 	useEffect(async () => {
 		const response = await fetch("/meSeller");
 		const data = await response.json();
-		// console.log("data1", data);
+		console.log("data1", data);
 		if (data.message == "ok") {
 			// console.log("datahere");
 			setUserName(data.data.sellerName);
 			setRestaurantPic(data.data.restaurantPic);
+			setRestaurantName(data.data.restaurantName);
+			setCostForTwo(data.data.costForTwo);
 			console.log("data", data);
 		} else {
 			// console.log("here");
@@ -59,13 +84,32 @@ const SellerHome = () => {
 		<>
 			<SellerNav userName={userName} />
 			{/* console.log(restaurantPic); */}
-			<div className="flex flex-col justify-center items-center">
+			<div className="flex bg-gray-900 p-10 gap-10  items-start">
 				<img
 					className="aspect-w-16 aspect-h-9 w-60 md:w-80"
 					src={restaurantPic}
 					alt="rest-pic"
 				/>
-				<h1 className=" font-bold text-4xl col-span-7">Your Menu</h1>
+				<div>
+					<h1 className="font-bold text-4xl text-white col-span-7">
+						{restaurantName}
+					</h1>
+					<div className="flex items-end">
+						<h1 className="mt-5  text-2xl text-white col-span-7">
+							Cost For Two:{costForTwo}
+						</h1>
+
+						<button
+							onClick={() => {
+								setShowTwoModal(true);
+							}}
+							className="ml-4 px-4 py-1 transition ease-in-out duration-300 h-auto  text-green-600 border-2  bg-none border-green-600  hover:bg-green-600 hover:text-white"
+						>
+							Update
+						</button>
+					</div>
+					<h1 className="mt-5  text-2xl text-white col-span-7">Rating: 0.0</h1>
+				</div>
 			</div>
 			<div className=" flex flex-col gap-10  rounded-md bg-gray-100 w-11/12 md:w-1/2 p-5 relative mt-4 m-auto">
 				<div className="flex w-full justify-center items-center">
@@ -104,9 +148,9 @@ const SellerHome = () => {
 					}}
 					title="Create a Category"
 				>
-					<div className="flex flex-col relative w-4/5 ">
+					<div className="flex flex-col w-4/5 ">
 						<input
-							class="border-2 px-2 focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
+							class="border-2 px-2 mb-10 focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
 							type="text"
 							name="category-name"
 							placeholder="Category Name"
@@ -114,7 +158,32 @@ const SellerHome = () => {
 						/>
 						<button
 							onClick={handleSubmit}
-							class=" bg-green-500 text-lg px-8 py-2 relative top-12 rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
+							class=" bg-green-500 text-lg px-8 py-2  top-12 rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
+						>
+							Submit
+						</button>
+					</div>
+				</Modal>
+			)}
+			{showTwoModal && (
+				<Modal
+					showModal={showTwoModal}
+					onChange={(val) => {
+						setShowTwoModal(val);
+					}}
+					title="Update Price For Two"
+				>
+					<div className="flex flex-col w-4/5 ">
+						<input
+							class="border-2 mb-10 px-2 focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
+							type="number"
+							name="twoPrice"
+							placeholder="New Price"
+							onChange={handleChange2}
+						/>
+						<button
+							onClick={handleSubmitTwo}
+							class=" bg-green-500 text-lg px-8 py-2  top-12 rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
 						>
 							Submit
 						</button>

@@ -28,7 +28,7 @@ const Modal = (props) => {
 						leaveFrom="opacity-100 scale-100"
 						leaveTo="opacity-0 scale-95"
 					>
-						<div className="rounded-lg h-80 shadow-lg relative w-80 md:w-96 flex flex-col bg-white outline-none focus:outline-none">
+						<div className="rounded-lg min-h-0 shadow-lg relative w-80 md:w-96 flex flex-col bg-white outline-none focus:outline-none	">
 							{/*header*/}
 
 							<div className="border-0 flex items-center justify-center p-5 border-b border-solid  rounded-t">
@@ -45,7 +45,7 @@ const Modal = (props) => {
 								</button>
 							</div>
 							{/*body*/}
-							<div className="relative p-6 flex h-40 justify-center items-center">
+							<div className=" relative	 p-6 flex justify-center items-center">
 								{props.children}
 							</div>
 						</div>

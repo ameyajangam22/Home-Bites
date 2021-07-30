@@ -114,9 +114,9 @@ const Navbar = ({ type, pg }) => {
 				>
 					<a
 						href="http://localhost:8000/google"
-						className=" w-4/5 flex p-1 bg-blue-400 hover:bg-blue-500 transition ease-in-out duration-500 items-center absolute h-18 md:h-20 text-xl shadow-lg rounded-md"
+						className=" mt-5 mb-20 relative bottom-2  w-4/5 flex p-1 bg-blue-400 hover:bg-blue-500 transition ease-in-out duration-500 items-center h-18 md:h-20 text-xl shadow-lg rounded-md"
 					>
-						<div className="bg-white  rounded-md p-3 flex justify-center items-center h-full overflow-hidden">
+						<div className=" bg-white  rounded-md p-3 flex justify-center items-center h-full overflow-hidden">
 							<img
 								src="https://img.icons8.com/color/48/000000/google-logo.png"
 								alt="google-png"

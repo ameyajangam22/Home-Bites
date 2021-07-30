@@ -77,6 +77,8 @@ router.post("/addDish", upload.none(), (req, res) => {
 					foodName: foodName,
 					foodPrice: foodPrice,
 					isVeg: isVeg,
+					foodPicUrl: req.body.foodPicUrl,
+					dishCloudinaryId: req.body.dishCloudinaryId,
 				},
 			},
 		},
@@ -116,6 +118,27 @@ router.post("/deleteDish", upload.none(), (req, res) => {
 			} else {
 				console.log("Dish deleted successfully");
 				res.send("Dish deleted successfully");
+			}
+		}
+	);
+});
+
+// MISCELLANEOUS
+router.post("/updateTwoPrice", (req, res) => {
+	const price = req.body.twoPrice;
+	const sellerId = req.session.seller._id;
+	console.log(price);
+	Seller.findOneAndUpdate(
+		{ _id: sellerId },
+		{ $set: { costForTwo: price } },
+		{ new: true },
+		(error, doc) => {
+			if (error) {
+				console.log(error);
+			} else {
+				console.log(doc);
+				req.session.seller.costForTwo = price;
+				res.json(doc);
 			}
 		}
 	);

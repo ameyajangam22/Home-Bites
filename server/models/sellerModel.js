@@ -29,6 +29,10 @@ const seller = new Schema({
 	cloudinaryId: {
 		type: String,
 	},
+	costForTwo: {
+		type: Number,
+		default: 0,
+	},
 	menu: [
 		{
 			categoryName: {
@@ -47,6 +51,12 @@ const seller = new Schema({
 					},
 					isVeg: {
 						type: Boolean,
+					},
+					foodPicUrl: {
+						type: String,
+					},
+					dishCloudinaryId: {
+						type: String,
 					},
 				},
 			],

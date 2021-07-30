@@ -2,13 +2,20 @@ import { ReactComponent as PlusIcon } from "../../icons/plus-icon.svg";
 import { ReactComponent as DownArrow } from "../../icons/down-arrow.svg";
 import { ReactComponent as UpArrow } from "../../icons/up-arrow.svg";
 import { ReactComponent as DeleteIcon } from "../../icons/delete-icon.svg";
+import { ReactComponent as CloudIcon } from "../../icons/cloud-upload.svg";
 import { useState, Fragment } from "react";
 import Modal from "../Common/Modal";
 import SellerDish from "./SellerDish";
+import axios from "axios";
 import { Transition } from "@headlessui/react";
+import CropImageModal from "./CropperImageFoodModal";
+const myConfig = require("../../myConfig");
 const SellerCategory = (props) => {
 	const [arrowDir, setArrowDir] = useState("down");
 	const [showModal, setShowModal] = useState(false);
+	const [showCropperModal, setShowCropperModal] = useState(false);
+	const [media, setMedia] = useState(null);
+	const [previewSource, setpreviewSource] = useState(null);
 	const [dish, setDish] = useState({
 		foodName: "",
 		foodPrice: 0,
@@ -37,8 +44,27 @@ const SellerCategory = (props) => {
 		const { name, value } = e.target;
 		setDish((prev) => ({ ...prev, [name]: value }));
 	};
+	const handleFoodImage = (e) => {
+		const file = e.target.files[0];
+		setMedia(file);
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onloadend = () => {
+			setpreviewSource(reader.result);
+		};
+		setShowCropperModal(true);
+	};
 	const handleSubmit = async () => {
 		console.log(dish);
+
+		// UPLOAD IMAGE TO CLOUDINARY
+		let formData2 = new FormData();
+		formData2.append("file", media);
+		formData2.append("upload_preset", "ml_default");
+		formData2.append("cloud_name", "home-bites");
+		const response2 = await axios.post(myConfig.CLOUDINARY_URL, formData2);
+		const foodPicUrl = response2.data.secure_url;
+		const dishCloudinaryId = response2.data.public_id;
 		const { foodName, foodPrice, isVeg } = dish;
 		const categoryName = props.categoryName;
 		const formData = new FormData();
@@ -46,10 +72,13 @@ const SellerCategory = (props) => {
 		formData.append("foodPrice", foodPrice);
 		formData.append("isVeg", isVeg);
 		formData.append("categoryName", categoryName);
+		formData.append("foodPicUrl", foodPicUrl);
+		formData.append("dishCloudinaryId", dishCloudinaryId);
 		const response = await fetch("/addDish", {
 			method: "POST",
 			body: formData,
 		});
+
 		setShowModal(false);
 		props.onChange();
 	};
@@ -116,7 +145,7 @@ const SellerCategory = (props) => {
 					}}
 					title="Add a new Dish"
 				>
-					<div className="flex flex-col mt-10 gap-3 relative top-2 relative w-4/5 ">
+					<div className="flex flex-col gap-3 h-64  relative w-4/5 ">
 						<input
 							class="border-2 px-2  focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
 							type="text"
@@ -131,7 +160,7 @@ const SellerCategory = (props) => {
 							placeholder="Dish Price"
 							onChange={handleChange}
 						/>
-						<div class="flex gap-10 relative top-3 justify-center items-center">
+						<div class="flex gap-10 relative top-1 justify-center items-center">
 							<div class="flex gap-4 justify-center items-center">
 								<label for="isVeg">Veg</label>
 								<input
@@ -151,14 +180,34 @@ const SellerCategory = (props) => {
 								/>
 							</div>
 						</div>
+						<label
+							onChange={handleFoodImage}
+							className="w-30 mt-3 md:w-48 flex items-center px-4 m-auto bg-white rounded-md shadow-md tracking-wide  border border-blue cursor-pointer hover:bg-yellow-300 hover:text-white text-black ease-linear transition-all duration-150"
+						>
+							<CloudIcon />
+							<span className="mt-1 text-base leading-normal">Upload File</span>
+							<input type="file" className="hidden" name="foodPic" />
+						</label>
 						<button
 							onClick={handleSubmit}
-							class=" bg-green-500 text-lg px-8 py-2 relative top-9 rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
+							class=" bg-green-500 text-lg px-8 py-2 relative  rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
 						>
 							Submit
 						</button>
 					</div>
 				</Modal>
+			)}
+			{showCropperModal && (
+				<CropImageModal
+					mediaPreview={previewSource}
+					media={media}
+					aspectRatio="32/27"
+					setMedia={setMedia}
+					showModal={showCropperModal}
+					handleFileChange={(val) => setMedia(val)}
+					setpreviewSource={setpreviewSource}
+					setShowModal={setShowCropperModal}
+				/>
 			)}
 		</>
 	);
