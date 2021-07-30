@@ -6,6 +6,7 @@ const SellerDish = (props) => {
 		let formData = new FormData();
 		formData.append("categoryName", props.categoryName);
 		formData.append("dishId", props.dishId);
+		formData.append("dishCloudinaryId", props.dishCloudinaryId);
 		const response = await fetch("/deleteDish", {
 			method: "POST",
 			body: formData,
@@ -16,7 +17,7 @@ const SellerDish = (props) => {
 		props.onChange();
 	};
 	return (
-		<div class="grid grid-cols-4 w-full p-4 justify-around bg-gray-200">
+		<div class="grid grid-cols-5 w-full p-4 justify-center items-center bg-gray-200">
 			<h1 class="col-span-1">{props.foodName}</h1>
 			<h1 class="col-span-1 text-center">{props.foodPrice}</h1>
 			{props.isVeg ? (
@@ -32,7 +33,13 @@ const SellerDish = (props) => {
 					</div>
 				</>
 			)}
-			<div onClick={handleDelete} class="flex cursor-pointer justify-end">
+			<div class="col-span-1 relative">
+				<img class="relative w-24" src={props.foodPicUrl} alt="" />
+			</div>
+			<div
+				onClick={handleDelete}
+				class="col-span-1 flex cursor-pointer justify-end"
+			>
 				<DeleteIcon />
 			</div>
 		</div>

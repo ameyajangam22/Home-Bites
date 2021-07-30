@@ -54,7 +54,12 @@ const SellerHome = () => {
 		const data = await response.json();
 		setShowTwoModal(false);
 	};
-
+	useEffect(async () => {
+		const response2 = await fetch("/getCategories");
+		const data2 = await response2.json();
+		// console.log("data2", data2.info);
+		setCategories(data2.info);
+	}, [catUpdate, dishOrCatUpdate]);
 	useEffect(async () => {
 		const response = await fetch("/meSeller");
 		const data = await response.json();
@@ -75,11 +80,7 @@ const SellerHome = () => {
 			});
 		}
 		// console.log("did it ran??");
-		const response2 = await fetch("/getCategories");
-		const data2 = await response2.json();
-		// console.log("data2", data2.info);
-		setCategories(data2.info);
-	}, [catUpdate, dishOrCatUpdate]);
+	}, [costForTwo]);
 	return (
 		<>
 			<SellerNav userName={userName} />

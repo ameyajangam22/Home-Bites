@@ -10,6 +10,7 @@ import axios from "axios";
 import { Transition } from "@headlessui/react";
 import CropImageModal from "./CropperImageFoodModal";
 const myConfig = require("../../myConfig");
+
 const SellerCategory = (props) => {
 	const [arrowDir, setArrowDir] = useState("down");
 	const [showModal, setShowModal] = useState(false);
@@ -33,7 +34,13 @@ const SellerCategory = (props) => {
 		// HANDLES DELETE OF CATEGORIES
 		const categoryName = props.categoryName;
 		let formData = new FormData();
+
 		formData.append("categoryName", categoryName);
+
+		console.log(dishes);
+		let dishArray = [];
+		dishes.forEach((dish) => dishArray.push(dish.dishCloudinaryId));
+		formData.append("dishes", dishArray);
 		const response = await fetch("/deleteCategory", {
 			method: "POST",
 			body: formData,
@@ -78,7 +85,8 @@ const SellerCategory = (props) => {
 			method: "POST",
 			body: formData,
 		});
-
+		setpreviewSource(null);
+		setMedia(null);
 		setShowModal(false);
 		props.onChange();
 	};
@@ -114,10 +122,11 @@ const SellerCategory = (props) => {
 				leaveTo="transform scale-95 opacity-0"
 			>
 				{dishes.length > 0 && (
-					<div className="grid grid-cols-4 w-full font-bold p-4 justify-around bg-gray-200">
-						<h1 class="col-span-1">Name</h1>
-						<h1 class=" col-span-1 text-center">Price</h1>
-						<h1 class="col-span-1 ml-5">Veg?</h1>
+					<div className="grid grid-cols-5  w-full font-bold p-4 justify-around bg-gray-200">
+						<h1 class="text-center col-span-1">Name</h1>
+						<h1 class="text-center col-span-1 ">Price</h1>
+						<h1 class="text-center col-span-1">Veg?</h1>
+						<h1 class="text-center col-span-1 mr-10 ">Image</h1>
 					</div>
 				)}
 
@@ -129,6 +138,8 @@ const SellerCategory = (props) => {
 							foodName={dish.foodName}
 							foodPrice={dish.foodPrice}
 							isVeg={dish.isVeg}
+							foodPicUrl={dish.foodPicUrl}
+							dishCloudinaryId={dish.dishCloudinaryId}
 							onChange={() => {
 								props.onChange();
 							}}
@@ -142,10 +153,12 @@ const SellerCategory = (props) => {
 					showModal={showModal}
 					onChange={(val) => {
 						setShowModal(val);
+						setMedia(null);
+						setpreviewSource(null);
 					}}
 					title="Add a new Dish"
 				>
-					<div className="flex flex-col gap-3 h-64  relative w-4/5 ">
+					<div className="flex flex-col gap-3  relative w-4/5 ">
 						<input
 							class="border-2 px-2  focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
 							type="text"
@@ -188,6 +201,17 @@ const SellerCategory = (props) => {
 							<span className="mt-1 text-base leading-normal">Upload File</span>
 							<input type="file" className="hidden" name="foodPic" />
 						</label>
+						{previewSource && (
+							<>
+								<div className="p-2">
+									<h3 className="bold text-base text-center">Image preview:</h3>
+									<img
+										src={previewSource}
+										className="aspect-w-16 aspect-h-9 w-24 md:w-48 m-auto shadow-lg "
+									/>
+								</div>
+							</>
+						)}
 						<button
 							onClick={handleSubmit}
 							class=" bg-green-500 text-lg px-8 py-2 relative  rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"

@@ -3,6 +3,7 @@ const upload = require("../../utils/multer");
 const router = express.Router();
 const Seller = require("../models/sellerModel");
 const mongoose = require("mongoose");
+const cloudinary = require("../../utils/cloudinary");
 /// CATEGORY ROUTES
 router.get("/getCategories", (req, res) => {
 	Seller.find({ _id: req.session.seller._id }, (error, doc) => {
@@ -33,6 +34,12 @@ router.post("/addCategory", upload.none(), (req, res) => {
 router.post("/deleteCategory", upload.none(), (req, res) => {
 	const categoryName = req.body.categoryName;
 	const sellerId = req.session.seller._id;
+	let dishes = req.body.dishes;
+	dishes = dishes.split(",");
+	console.log("dishes in BE", dishes);
+	dishes.forEach(async (dish) => {
+		let rep = await cloudinary.uploader.destroy(dish);
+	});
 	Seller.findOneAndUpdate(
 		{ _id: sellerId },
 		{
@@ -43,7 +50,7 @@ router.post("/deleteCategory", upload.none(), (req, res) => {
 				console.log(error);
 			} else {
 				console.log("Succesfully deleted category");
-				console.log(doc);
+				// console.log(doc);
 				res.send("ok");
 			}
 		}
@@ -92,10 +99,13 @@ router.post("/addDish", upload.none(), (req, res) => {
 		}
 	);
 });
-router.post("/deleteDish", upload.none(), (req, res) => {
+router.post("/deleteDish", upload.none(), async (req, res) => {
 	const categoryName = req.body.categoryName;
 	const dishId = req.body.dishId;
 	const sellerId = req.session.seller._id;
+	const dishCloudinaryId = req.body.dishCloudinaryId;
+
+	const remPic = await cloudinary.uploader.destroy(dishCloudinaryId);
 	Seller.findOneAndUpdate(
 		{
 			_id: sellerId,
