@@ -70,7 +70,7 @@ const SellerHome = () => {
 			setRestaurantPic(data.data.restaurantPic);
 			setRestaurantName(data.data.restaurantName);
 			setCostForTwo(data.data.costForTwo);
-			console.log("data", data);
+			//console.log("data", data);
 		} else {
 			// console.log("here");
 			localStorage.setItem("isSellerAuthenticated", "false");
@@ -80,7 +80,7 @@ const SellerHome = () => {
 			});
 		}
 		// console.log("did it ran??");
-	}, [costForTwo]);
+	}, []);
 	return (
 		<>
 			<SellerNav userName={userName} />

@@ -8,7 +8,7 @@ import { ReactComponent as HamBurgerIcon } from "../../icons/hamBurger.svg";
 import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Modal from "../Common/Modal";
-const Navbar = ({ type, pg }) => {
+const Navbar = ({ type, pg, cartCount }) => {
 	const history = useHistory();
 	const [showModal, setShowModal] = useState(false);
 	const [userName, setUserName] = useState("Anon");
@@ -80,7 +80,17 @@ const Navbar = ({ type, pg }) => {
 						</a>
 					</div>
 					<div className="flex gap-2">
-						<CartIcon />
+						<div className="relative flex">
+							<CartIcon />
+							{cartCount > 0 && (
+								<>
+									<span class="animate-ping absolute right-0 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center"></span>
+									<span class=" absolute right-0 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
+										{cartCount}
+									</span>
+								</>
+							)}
+						</div>
 						<a href="#">Cart</a>
 					</div>
 					<div id="log-out" className="flex gap-2 hidden">
