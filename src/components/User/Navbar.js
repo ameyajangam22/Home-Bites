@@ -91,7 +91,7 @@ const Navbar = ({ type, pg, cartCount }) => {
 								</>
 							)}
 						</div>
-						<a href="#">Cart</a>
+						<a href="/checkout">Cart</a>
 					</div>
 					<div id="log-out" className="flex gap-2 hidden">
 						<LogOutIcon />

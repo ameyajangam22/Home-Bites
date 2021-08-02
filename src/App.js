@@ -14,7 +14,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import SellerPage from "./pages/SellerPage";
+import Checkout from "./pages/Checkout";
 import "cropperjs/dist/cropper.css";
+
 function App() {
 	toast.configure();
 	const [isUserAuth, setIsUserAuth] = useState(true);
@@ -46,6 +48,7 @@ function App() {
 					redirect="/sellerLogin"
 					customMessage="Login as seller first"
 				/>
+				<Route exact path="/checkout" component={Checkout}></Route>
 			</Switch>
 
 			<ToastContainer />

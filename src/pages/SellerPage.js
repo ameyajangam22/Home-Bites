@@ -111,6 +111,7 @@ const SellerPage = (props) => {
 								cartCount={cartCount}
 								setCartCount={setCartCount}
 								menu={menu}
+								restaurantName={restaurantName}
 							/>
 						</Tab.Panel>
 						<Tab.Panel>

@@ -1,6 +1,6 @@
 import CategoryLink from "../Common/CategoryLink";
 import CategoryComponent from "../Common/CategoryComponent";
-const SellerMenu = ({ menu, cartCount, setCartCount }) => {
+const SellerMenu = ({ menu, cartCount, setCartCount, restaurantName }) => {
 	// console.log(menu);
 	return (
 		<>
@@ -23,6 +23,7 @@ const SellerMenu = ({ menu, cartCount, setCartCount }) => {
 								cartCount={cartCount}
 								setCartCount={setCartCount}
 								category={category}
+								restaurantName={restaurantName}
 							/>
 						);
 					})}

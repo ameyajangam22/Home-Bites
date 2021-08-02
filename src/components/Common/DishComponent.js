@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as PlusIcon } from "../../icons/plus-icon.svg";
 import { ReactComponent as MinusIcon } from "../../icons/minus-icon.svg";
-const DishComponent = ({ dish, cartCount, setCartCount }) => {
+const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 	const [counter, setCounter] = useState(0);
 	let orders = [];
 
@@ -11,7 +11,13 @@ const DishComponent = ({ dish, cartCount, setCartCount }) => {
 		}
 		let index = orders.findIndex((el) => el.dishId === dish._id);
 		if (index == -1) {
-			orders.push({ dishId: dish._id, count: 1 });
+			orders.push({
+				dishId: dish._id,
+				dishName: dish.foodName,
+				restaurantName: restaurantName,
+				dishPrice: dish.foodPrice,
+				count: 1,
+			});
 		} else {
 			orders[index].count = orders[index].count + 1;
 		}
@@ -87,7 +93,7 @@ const DishComponent = ({ dish, cartCount, setCartCount }) => {
 						src={dish.foodPicUrl}
 						alt=""
 					/>
-					<div class="grid grid-cols-3 justify-center  w-full items-center relative bottom-3 md:bottom-8 h-4 md:h-8 bg-gray-100 opacity-90 z-20">
+					<div class=" grid grid-cols-3 justify-center  w-full items-center relative bottom-3 md:bottom-8 h-4 md:h-8 bg-gray-100 opacity-90 z-10">
 						<button
 							id={dish._id}
 							onClick={decreaseCount}
@@ -100,7 +106,7 @@ const DishComponent = ({ dish, cartCount, setCartCount }) => {
 						</div>
 						<button
 							onClick={increaseCount}
-							className="col-span-1 bg-green-500 rounded-md font-medium md:text-xl text-white"
+							className="col-span-1 bg-green-500 w-full rounded-md font-medium md:text-2xl text-white"
 						>
 							+
 						</button>

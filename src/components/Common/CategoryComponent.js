@@ -1,6 +1,11 @@
 import DishComponent from "./DishComponent";
 
-const CategoryComponent = ({ category, cartCount, setCartCount }) => {
+const CategoryComponent = ({
+	category,
+	cartCount,
+	setCartCount,
+	restaurantName,
+}) => {
 	return (
 		<>
 			<div className="py-4">
@@ -16,6 +21,7 @@ const CategoryComponent = ({ category, cartCount, setCartCount }) => {
 								cartCount={cartCount}
 								setCartCount={setCartCount}
 								dish={dish}
+								restaurantName={restaurantName}
 							/>
 						);
 					})}
