@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as LockIcon } from "../../icons/lock.svg";
 import { ReactComponent as CheckIcon } from "../../icons/check.svg";
-const StepComponent = () => {
+import PaymentComponent from "../Common/PaymentComponent";
+
+const StepComponent = ({ finalAmount }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [phoneNumber, setPhoneNumber] = useState("");
 	const [address, setAddress] = useState("");
 	const [step2, setStep2] = useState(false);
 	const [errorPhone, setErrorPhone] = useState("");
 	const [errorAddr, setErrorAddr] = useState("");
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		if (name == "phoneNumber") {
@@ -38,6 +42,8 @@ const StepComponent = () => {
 		const data = await response.json();
 		if (data.user) {
 			setIsLoggedIn(true);
+			setName(data.user.name);
+			setEmail(data.user.email);
 		} else {
 			setIsLoggedIn(false);
 		}
@@ -101,12 +107,24 @@ const StepComponent = () => {
 						)}
 					</div>
 					<div className="absolute right-10">
-						{!isLoggedIn ? <LockIcon /> : <></>}
-						{isLoggedIn && step2 ? <CheckIcon /> : <></>}
+						{!isLoggedIn && <LockIcon />}
+						{isLoggedIn && step2 && <CheckIcon />}
 					</div>
 				</div>
 				<div className=" relative bg-gray-200 p-10 mb-10 px-9 flex items-center">
-					<h2 className="text-gray-700 text-2xl  font-medium">Payment</h2>
+					<div className="relative flex flex-col gap-4">
+						<h2 className="text-gray-700 text-2xl  font-medium">Payment</h2>
+						{isLoggedIn && step2 ? (
+							<PaymentComponent
+								name={name}
+								email={email}
+								phoneNumber={phoneNumber}
+								finalAmount={finalAmount}
+							/>
+						) : (
+							<></>
+						)}
+					</div>
 					<div className="absolute right-10">
 						{isLoggedIn && step2 ? <></> : <LockIcon />}
 					</div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import CartComponent from "../Common/CartComponent";
-const BillingCard = () => {
+const BillingCard = ({ finalAmount, setFinalAmount }) => {
 	const [quantity, setQuantity] = useState(0);
 	const [dishId, setDishId] = useState("");
 	const [showBill, setShowBill] = useState(true);
@@ -16,6 +16,7 @@ const BillingCard = () => {
 			orders = JSON.parse(localStorage.getItem("orders"));
 			orders.forEach((order) => (total += order.count * order.dishPrice));
 			setFinalBill(total);
+			setFinalAmount(total);
 			//console.log(orders);
 		} else {
 			setShowBill(false);
@@ -25,7 +26,7 @@ const BillingCard = () => {
 	return (
 		<>
 			{showBill ? (
-				<div className=" w-3/4 md:w-full m-auto grid  grid-cols-4 gap-3 items-center  p-2 bg-gray-100 h-auto">
+				<div className=" w-3/4 md:w-full m-auto grid  grid-cols-4 gap-3 items-center  p-2 bg-gray-100">
 					<div className="underline col-span-1 text-center font-medium">
 						Dish Name
 					</div>
