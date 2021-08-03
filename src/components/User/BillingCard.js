@@ -62,7 +62,9 @@ const BillingCard = () => {
 							<div className="col-span-1"></div>
 							<div className="col-span-1"></div>
 							<div className="pb-8 col-span-1 text-center">
-								<h2 className="font-bold text-2xl text-red-600">{finalBill}</h2>
+								<h2 className="font-bold text-2xl text-red-600">
+									₹ {finalBill}
+								</h2>
 							</div>
 						</>
 					)}

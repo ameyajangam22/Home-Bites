@@ -33,7 +33,7 @@ const CartComponent = ({
 			</div>
 			<div className="col-span-1 text-center font-medium">{count}</div>
 			<div className="col-span-1 text-center font-medium">
-				{count * dishPrice}
+				₹ {count * dishPrice}
 			</div>
 			<div
 				onClick={handleDelete}
