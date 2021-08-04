@@ -13,6 +13,26 @@ const user = new Schema({
 	username: String,
 	displayName: String,
 	phoneNo: Number,
+	orders: [
+		{
+			restaurantName: {
+				type: String,
+			},
+			quantity: {
+				type: Number,
+			},
+			dishName: {
+				type: String,
+			},
+			dishPrice: {
+				type: Number,
+			},
+			created_at: {
+				type: Date,
+				default: Date.now,
+			},
+		},
+	],
 });
 
 module.exports = mongoose.model("User", user);

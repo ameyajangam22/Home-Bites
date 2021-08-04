@@ -10,7 +10,7 @@ const StepComponent = ({ finalAmount }) => {
 	const [step2, setStep2] = useState(false);
 	const [errorPhone, setErrorPhone] = useState("");
 	const [errorAddr, setErrorAddr] = useState("");
-	const [name, setName] = useState("");
+	const [uname, setUName] = useState("");
 	const [email, setEmail] = useState("");
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -42,8 +42,8 @@ const StepComponent = ({ finalAmount }) => {
 		const data = await response.json();
 		if (data.user) {
 			setIsLoggedIn(true);
-			setName(data.user.name);
 			setEmail(data.user.email);
+			setUName(data.user.displayName);
 		} else {
 			setIsLoggedIn(false);
 		}
@@ -116,10 +116,11 @@ const StepComponent = ({ finalAmount }) => {
 						<h2 className="text-gray-700 text-2xl  font-medium">Payment</h2>
 						{isLoggedIn && step2 ? (
 							<PaymentComponent
-								name={name}
+								uname={uname}
 								email={email}
 								phoneNumber={phoneNumber}
 								finalAmount={finalAmount}
+								customerAddr={address}
 							/>
 						) : (
 							<></>

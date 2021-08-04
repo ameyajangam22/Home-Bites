@@ -1,5 +1,14 @@
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-const PaymentComponent = ({ name, email, phoneNumber, finalAmount }) => {
+
+const PaymentComponent = ({
+	uname,
+	email,
+	phoneNumber,
+	finalAmount,
+	customerAddr,
+}) => {
+	const history = useHistory();
 	const displayRazorPay = async () => {
 		const response = await fetch("/razorpay/" + finalAmount, {
 			method: "POST",
@@ -14,14 +23,37 @@ const PaymentComponent = ({ name, email, phoneNumber, finalAmount }) => {
 			image:
 				"https://res.cloudinary.com/home-bites/image/upload/v1628023938/Home-Bites-Logo-01_su24el.png",
 			order_id: data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-			handler: function (response) {
-				alert(response.razorpay_payment_id);
-				alert(response.razorpay_order_id);
-				alert(response.razorpay_signature);
+			handler: async function (response) {
+				// alert(response.razorpay_payment_id);
+				// alert(response.razorpay_order_id);
+				// alert(response.razorpay_signature);
+				let formData = new FormData();
+				formData.append("customerEmail", email);
+				formData.append("customerName", uname);
+				formData.append("customerPhone", phoneNumber);
+				formData.append("customerAddr", customerAddr);
+				formData.append("order_id", response.razorpay_order_id);
+				let final_orders = JSON.parse(localStorage.getItem("orders"));
+				final_orders.map((order) => {
+					formData.append("orders[]", JSON.stringify(order));
+				});
+				const res = await fetch("/addOrders", {
+					method: "POST",
+					body: formData,
+				});
+				const res2 = await fetch("/addUserOrders", {
+					method: "POST",
+					body: formData,
+				});
+
 				toast.success("Payment Successful");
+				history.push("/userOrders");
+
+				// unset localStorage and move back to orders pages
+				localStorage.removeItem("orders");
 			},
 			prefill: {
-				name: name,
+				name: uname,
 				email: email,
 				contact: phoneNumber,
 			},

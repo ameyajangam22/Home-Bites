@@ -75,6 +75,35 @@ const seller = new Schema({
 			},
 		},
 	],
+	orders: [
+		{
+			order_id: {
+				type: String,
+			},
+			customerName: {
+				type: String,
+			},
+			customerAddr: {
+				type: String,
+			},
+			customerPhone: {
+				type: String,
+			},
+			dishName: {
+				type: String,
+			},
+			quantity: {
+				type: Number,
+			},
+			dishPrice: {
+				type: Number,
+			},
+			created_at: {
+				type: Date,
+				default: Date.now,
+			},
+		},
+	],
 });
 
 module.exports = mongoose.model("Seller", seller);

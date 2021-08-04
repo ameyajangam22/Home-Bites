@@ -12,6 +12,8 @@ const sellerSignupRoutes = require("./routes/seller-signup-routes");
 const sellerLoginRoutes = require("./routes/seller-login-routes");
 const sellerRoutes = require("./routes/seller-routes");
 const userRoutes = require("./routes/user-routes");
+const checkoutRoutes = require("./routes/checkout-routes");
+const sellerOrderRoutes = require("./routes/seller-order-routes");
 const Razorpay = require("razorpay");
 const shortid = require("shortid");
 dbConnection.db();
@@ -55,8 +57,9 @@ const razorpay = new Razorpay({
 app.use(sellerSignupRoutes);
 app.use(sellerLoginRoutes);
 app.use(sellerRoutes);
+app.use(sellerOrderRoutes);
 app.use(userRoutes);
-
+app.use(checkoutRoutes);
 // payment routes
 app.post("/razorpay/:finalAmount", async (req, res) => {
 	const payment_capture = 1;

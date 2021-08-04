@@ -15,6 +15,8 @@ import { useState, useEffect } from "react";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import SellerPage from "./pages/SellerPage";
 import Checkout from "./pages/Checkout";
+import SellerOrders from "./components/User/SellerOrders";
+import UserOrders from "./pages/UserOrders";
 import "cropperjs/dist/cropper.css";
 
 function App() {
@@ -49,8 +51,9 @@ function App() {
 					customMessage="Login as seller first"
 				/>
 				<Route exact path="/checkout" component={Checkout}></Route>
+				<Route exact path="/seller/myOrders" component={SellerOrders}></Route>
 			</Switch>
-
+			<Route exact path="/userOrders" component={UserOrders} />
 			<ToastContainer />
 		</div>
 	);
