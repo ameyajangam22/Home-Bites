@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as PlusIcon } from "../../icons/plus-icon.svg";
 import { ReactComponent as MinusIcon } from "../../icons/minus-icon.svg";
+const orderid = require("order-id")("mysecret");
 const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 	const [counter, setCounter] = useState(0);
 	let orders = [];
@@ -11,8 +12,10 @@ const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 		}
 		let index = orders.findIndex((el) => el.dishId === dish._id);
 		if (index == -1) {
+			let newOrderId = orderid.generate();
 			orders.push({
-				dishId: dish._id,
+				order_id: newOrderId,
+				dishPic: dish.foodPicUrl,
 				dishName: dish.foodName,
 				restaurantName: restaurantName,
 				dishPrice: dish.foodPrice,

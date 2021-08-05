@@ -18,4 +18,5 @@ router.get("/getSellers", (req, res) => {
 		}
 	});
 });
+
 module.exports = router;

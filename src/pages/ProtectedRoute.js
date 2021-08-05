@@ -15,8 +15,14 @@ const ProtectedRoute = ({
 		// console.log("isAuthB", isAuth);
 	} else if (type === "seller") {
 		isAuth = localStorage.getItem("isSellerAuthenticated");
+	} else if (type == "userOrders") {
+		isAuth = localStorage.getItem("isUserLoggedOut");
+		if (isAuth === "true") {
+			isAuth = "false";
+		} else {
+			isAuth = "true";
+		}
 	}
-	// console.log("good",good);
 	return (
 		<Route
 			{...rest}

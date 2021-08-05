@@ -29,7 +29,7 @@ router.post("/addOrders", upload.none(), (req, res) => {
 				{
 					$push: {
 						orders: {
-							order_id: req.body.order_id,
+							order_id: order.order_id,
 							customerName: req.body.customerName,
 							customerAddr: req.body.customerAddr,
 							customerPhone: req.body.customerPhone,
@@ -66,8 +66,10 @@ router.post("/addUserOrders", upload.none(), (req, res) => {
 			{
 				$push: {
 					orders: {
+						dishPic: order.dishPic,
+						order_id: order.order_id,
 						restaurantName: order.restaurantName,
-						quantity: order.quantity,
+						quantity: order.count,
 						dishName: order.dishName,
 						dishPrice: order.dishPrice,
 					},

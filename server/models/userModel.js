@@ -15,6 +15,12 @@ const user = new Schema({
 	phoneNo: Number,
 	orders: [
 		{
+			order_id: {
+				type: String,
+			},
+			dishPic: {
+				type: String,
+			},
 			restaurantName: {
 				type: String,
 			},

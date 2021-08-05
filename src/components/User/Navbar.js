@@ -5,6 +5,7 @@ import { ReactComponent as SearchIcon } from "../../icons/search.svg";
 import { ReactComponent as LogOutIcon } from "../../icons/logout.svg";
 import { ReactComponent as LogInIcon } from "../../icons/login.svg";
 import { ReactComponent as HamBurgerIcon } from "../../icons/hamBurger.svg";
+import { ReactComponent as ThunderIcon } from "../../icons/thunder.svg";
 import { Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Modal from "../Common/Modal";
@@ -39,10 +40,18 @@ const Navbar = ({ type, pg, cartCount }) => {
 					localStorage.setItem("isUserLoggedOut", false);
 					const signIn = document.getElementById("sign-in");
 					const logOut = document.getElementById("log-out");
-					if (signIn) signIn.classList.add("hidden");
-					if (logOut) logOut.classList.remove("hidden");
+					const myorders = document.getElementById("myOrders");
+					if (signIn) {
+						signIn.classList.add("hidden");
+					}
+					if (logOut) {
+						logOut.classList.remove("hidden");
+						if (myorders) myorders.classList.remove("hidden");
+					}
 				} else {
+					const myorders = document.getElementById("myOrders");
 					localStorage.setItem("isUserLoggedOut", true);
+					if (myorders) myorders.classList.add("hidden");
 				}
 			});
 	}, []);
@@ -78,6 +87,10 @@ const Navbar = ({ type, pg, cartCount }) => {
 						>
 							Sign in
 						</a>
+					</div>
+					<div id="myOrders" className="flex gap-2 ">
+						<ThunderIcon />
+						<a href="/userOrders">My Orders</a>
 					</div>
 					<div className="flex gap-2">
 						<div className="relative flex">
