@@ -52,15 +52,16 @@ function App() {
 				/>
 				<Route exact path="/checkout" component={Checkout}></Route>
 				<Route exact path="/seller/myOrders" component={SellerOrders}></Route>
+				<ProtectedRoute
+					exact
+					path="/userOrders"
+					component={UserOrders}
+					type="userOrders"
+					redirect="/"
+					customMessage="Login as user first"
+				/>
 			</Switch>
-			<ProtectedRoute
-				exact
-				path="/userOrders"
-				component={UserOrders}
-				type="userOrders"
-				redirect="/"
-				customMessage="Login as user first"
-			/>
+
 			<ToastContainer />
 		</div>
 	);

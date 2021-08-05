@@ -25,6 +25,8 @@ const StepComponent = ({ finalAmount }) => {
 	const handleSave = (e) => {
 		if (phoneNumber.length == 10 && address !== "") {
 			setStep2(true);
+			const thirdStep = document.getElementById("thirdStep");
+			thirdStep.style.opacity = "1";
 			setErrorPhone("");
 			setErrorAddr("");
 		} else {
@@ -44,6 +46,8 @@ const StepComponent = ({ finalAmount }) => {
 			setIsLoggedIn(true);
 			setEmail(data.user.email);
 			setUName(data.user.displayName);
+			const secondStep = document.getElementById("secondStep");
+			secondStep.style.opacity = "1";
 		} else {
 			setIsLoggedIn(false);
 		}
@@ -51,7 +55,7 @@ const StepComponent = ({ finalAmount }) => {
 	return (
 		<>
 			<div className="relative flex flex-col md:px-20 justify-around mt-10 gap-20 w-full m-auto px-8 ">
-				<div className=" relative bg-gray-200 p-10  flex items-center">
+				<div className=" relative bg-gray-50 shadow-2xl p-10  flex items-center">
 					{isLoggedIn ? (
 						<h2 className=" text-green-500 text-2xl  font-medium">
 							Logged in !
@@ -66,7 +70,10 @@ const StepComponent = ({ finalAmount }) => {
 						{isLoggedIn ? <CheckIcon /> : <LockIcon />}
 					</div>
 				</div>
-				<div className=" relative disabled:opacity-40 bg-gray-200 p-10 px-9 flex items-center">
+				<div
+					id="secondStep"
+					className=" relative opacity-50 bg-gray-50 shadow-2xl p-10 px-9 flex items-center"
+				>
 					<div className="relative flex flex-col gap-4">
 						{isLoggedIn && step2 ? (
 							<h2 className="text-green-500 text-2xl  font-medium">
@@ -84,9 +91,10 @@ const StepComponent = ({ finalAmount }) => {
 									onChange={handleChange}
 									placeholder="Phone Number"
 									name="phoneNumber"
-									className="p-2 w-3/4 md:w-full rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+									className="shadow-inner p-2 w-3/4 md:w-full rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
 								/>
 								<span className="text-red-500">{errorPhone}</span>
+
 								<textarea
 									cols="50"
 									rows="2"
@@ -94,7 +102,7 @@ const StepComponent = ({ finalAmount }) => {
 									style={{ resize: "none" }}
 									placeholder="Address"
 									name="address"
-									className="p-2 w-3/4 md:w-full rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+									className="shadow-inner p-2 w-3/4 md:w-full rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
 								/>
 								<span className="text-red-500">{errorAddr}</span>
 								<button
@@ -111,7 +119,10 @@ const StepComponent = ({ finalAmount }) => {
 						{isLoggedIn && step2 && <CheckIcon />}
 					</div>
 				</div>
-				<div className=" relative bg-gray-200 p-10 mb-10 px-9 flex items-center">
+				<div
+					id="thirdStep"
+					className=" relative opacity-50 bg-gray-50 shadow-2xl p-10 mb-10 px-9 flex items-center"
+				>
 					<div className="relative flex flex-col gap-4">
 						<h2 className="text-gray-700 text-2xl  font-medium">Payment</h2>
 						{isLoggedIn && step2 ? (

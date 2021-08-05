@@ -115,7 +115,9 @@ const SellerPage = (props) => {
 							/>
 						</Tab.Panel>
 						<Tab.Panel>
-							<CommentSection />
+							<CommentSection
+								sellerId={props.history.location.state.sellerId}
+							/>
 						</Tab.Panel>
 						<Tab.Panel>
 							<ContactSeller />

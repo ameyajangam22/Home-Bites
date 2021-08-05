@@ -1,7 +1,9 @@
-const CommentSection = () => {
+import AddComment from "../Common/AddComment";
+
+const CommentSection = ({ sellerId }) => {
 	return (
 		<>
-			<h2>Display Comments</h2>
+			<AddComment sellerId={sellerId} />
 		</>
 	);
 };

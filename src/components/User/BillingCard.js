@@ -26,7 +26,7 @@ const BillingCard = ({ finalAmount, setFinalAmount }) => {
 	return (
 		<>
 			{showBill ? (
-				<div className=" w-3/4 md:w-full m-auto grid  grid-cols-4 gap-3 items-center  p-2 bg-gray-100">
+				<div className=" w-3/4 md:w-full m-auto grid  grid-cols-4 gap-3 items-center  p-2 bg-gray-50 shadow-2xl ">
 					<div className="underline col-span-1 text-center font-medium">
 						Dish Name
 					</div>
