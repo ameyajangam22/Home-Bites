@@ -11,9 +11,17 @@ const SellerPage = (props) => {
 	const [costForTwo, setCostForTwo] = useState("");
 	const [menu, setMenu] = useState([]);
 	const [cartCount, setCartCount] = useState(0);
+	const [comments, setComments] = useState([]);
+	const [userEmail, setUserEmail] = useState("");
 	function classNames(...classes) {
 		return classes.filter(Boolean).join(" ");
 	}
+	const fetchComments = async (sellerId) => {
+		const response2 = await fetch("/getComments/" + sellerId);
+		const data2 = await response2.json();
+		data2.reverse();
+		setComments(data2);
+	};
 	useEffect(async () => {
 		const sellerId = props.history.location.state.sellerId;
 		const response = await fetch(`/getSeller/${sellerId}`);
@@ -23,6 +31,7 @@ const SellerPage = (props) => {
 		setCostForTwo(data[0].costForTwo);
 		setMenu(data[0].menu);
 		// console.log(data);
+		fetchComments(sellerId);
 	}, []);
 	useEffect(async () => {
 		const resp = await fetch("/me");
@@ -32,6 +41,7 @@ const SellerPage = (props) => {
 		if (!data.user) localStorage.setItem("orders", []);
 		else {
 			let cartFetchcounter = 0;
+			setUserEmail(data.user.email);
 			if (localStorage.getItem("orders")) {
 				let orders = JSON.parse(localStorage.getItem("orders"));
 				orders.forEach((order) => (cartFetchcounter += order.count));
@@ -115,9 +125,16 @@ const SellerPage = (props) => {
 							/>
 						</Tab.Panel>
 						<Tab.Panel>
-							<CommentSection
-								sellerId={props.history.location.state.sellerId}
-							/>
+							<div className="px-10">
+								<CommentSection
+									sellerId={props.history.location.state.sellerId}
+									comments={comments}
+									handleUpdate={(sellerId) => {
+										fetchComments(sellerId);
+									}}
+									userEmail={userEmail}
+								/>
+							</div>
 						</Tab.Panel>
 						<Tab.Panel>
 							<ContactSeller />

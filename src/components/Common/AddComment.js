@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const AddComment = ({ sellerId }) => {
+const AddComment = ({ handleAdd, sellerId }) => {
 	const history = useHistory();
 	const [rating, setRating] = useState(0);
 	const [showModal, setShowModal] = useState(false);
@@ -22,6 +22,7 @@ const AddComment = ({ sellerId }) => {
 			body: formData,
 		});
 		setShowModal(false);
+		handleAdd();
 	};
 	useEffect(async () => {
 		const response = await fetch("/me");
@@ -55,7 +56,6 @@ const AddComment = ({ sellerId }) => {
 						<div className="m-auto">
 							<ReactStars
 								count={5}
-								isHalf={true}
 								onChange={(val) => {
 									setRating(val);
 									console.log(rating);

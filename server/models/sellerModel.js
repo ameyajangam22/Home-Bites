@@ -67,11 +67,18 @@ const seller = new Schema({
 			userName: {
 				type: String,
 			},
+			userEmail: {
+				type: String,
+			},
 			rating: {
 				type: mongoose.Decimal128,
 			},
 			review: {
 				type: String,
+			},
+			created_at: {
+				type: Date,
+				default: Date.now,
 			},
 		},
 	],
