@@ -55,7 +55,7 @@ const SellerPage = (props) => {
 		comments.forEach((comment) => {
 			rate += +comment.rating.$numberDecimal;
 		});
-		rate = rate / comments.length;
+		if (comments.length > 0) rate = rate / comments.length;
 
 		setRating(rate.toFixed(1));
 	}, [comments]);

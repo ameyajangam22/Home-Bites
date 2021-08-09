@@ -6,6 +6,7 @@ import { ReactComponent as PlusIcon } from "../icons/plus-icon.svg";
 import Modal from "../components/Common/Modal";
 import SellerCategory from "../components/User/SellerCategory";
 import CropImageModal from "../components/User/CropImageModal";
+import { ReactComponent as StarIcon } from "../icons/star.svg";
 
 const SellerHome = () => {
 	const history = useHistory();
@@ -19,6 +20,8 @@ const SellerHome = () => {
 	const [restaurantName, setRestaurantName] = useState("");
 	const [costForTwo, setCostForTwo] = useState(0);
 	const [showTwoModal, setShowTwoModal] = useState(false);
+	const [comments, setComments] = useState([]);
+	const [rating, setRating] = useState(0);
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setNewcategory(value);
@@ -70,6 +73,10 @@ const SellerHome = () => {
 			setRestaurantPic(data.data.restaurantPic);
 			setRestaurantName(data.data.restaurantName);
 			setCostForTwo(data.data.costForTwo);
+			console.log("ddd", data.data);
+			const response2 = await fetch("/getComments/" + data.data._id);
+			const data2 = await response2.json();
+			setComments(data2);
 			//console.log("data", data);
 		} else {
 			// console.log("here");
@@ -81,23 +88,32 @@ const SellerHome = () => {
 		}
 		// console.log("did it ran??");
 	}, []);
+	useEffect(async () => {
+		let rate = 0;
+		comments.forEach((comment) => {
+			rate += +comment.rating.$numberDecimal;
+		});
+		if (comments.length > 0) rate = rate / comments.length;
+
+		setRating(rate.toFixed(1));
+	}, [comments]);
 	return (
 		<>
 			<SellerNav userName={userName} />
 			{/* console.log(restaurantPic); */}
-			<div className="flex bg-gray-900 p-10 gap-10  items-start">
+			<div className="flex bg-gray-900 p-5 md:p-10 gap-10  items-start">
 				<img
-					className="aspect-w-16 aspect-h-9 w-60 md:w-80"
+					className="aspect-w-16 aspect-h-9 w-40 md:w-80"
 					src={restaurantPic}
 					alt="rest-pic"
 				/>
 				<div>
-					<h1 className="font-bold text-4xl text-white col-span-7">
+					<h1 className="font-bold text-2xl md:text-4xl text-white col-span-7">
 						{restaurantName}
 					</h1>
 					<div className="flex items-end">
-						<h1 className="mt-5  text-2xl text-white col-span-7">
-							Cost For Two:{costForTwo}
+						<h1 className="mt-5 text-lg  md:text-2xl text-white col-span-7">
+							Cost For Two:<span className="ml-1">{costForTwo}</span>
 						</h1>
 
 						<button
@@ -109,7 +125,12 @@ const SellerHome = () => {
 							Update
 						</button>
 					</div>
-					<h1 className="mt-5  text-2xl text-white col-span-7">Rating: 0.0</h1>
+					<h1 className="mt-5 flex gap-3 items-center text-lg md:text-2xl text-white col-span-7">
+						Rating:
+						<span className="flex items-center gap-3">
+							<StarIcon /> <span>{rating}</span>
+						</span>
+					</h1>
 				</div>
 			</div>
 			<div className=" flex flex-col gap-10  rounded-md bg-gray-100 w-11/12 md:w-1/2 p-5 relative mt-4 m-auto">
