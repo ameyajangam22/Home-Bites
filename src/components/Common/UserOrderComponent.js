@@ -10,12 +10,25 @@ const UserOrderComponent = (props) => {
 					Restaurant Name:{" "}
 					<span className="font-medium text-white">{props.restaurantName}</span>
 				</h2>
-				<img
-					className=" ml-auto mb-2 w-40 rounded-md"
-					src={props.dishPic}
-					alt="dish-pic"
-				/>
-
+				<div className="flex">
+					<h2 className="mt-5 text-lg md:text-xl font-bold">
+						Status:{" "}
+						{props.dispatched ? (
+							<span className="ml-4 bg-yellow-400 p-3 rounded text-white">
+								<span className="animate-spin">🍳</span> Cooking
+							</span>
+						) : (
+							<span className="ml-4 bg-green-400 p-3 rounded text-white">
+								<span className="animate-spin">🚚</span> Delivered
+							</span>
+						)}
+					</h2>
+					<img
+						className=" ml-auto mb-2 w-40 rounded-md"
+						src={props.dishPic}
+						alt="dish-pic"
+					/>
+				</div>
 				<div className="grid grid-cols-3">
 					<div className="col-span-1 text-center font-bold">Dish</div>
 					<div className="col-span-1 text-center font-bold">Quantity</div>

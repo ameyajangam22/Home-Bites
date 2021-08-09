@@ -4,7 +4,7 @@ import { Tab } from "@headlessui/react";
 import SellerMenu from "../components/User/SellerMenu";
 import CommentSection from "../components/User/CommentSection";
 import ContactSeller from "../components/User/ContactSeller";
-
+import { ReactComponent as StarIcon } from "../icons/star.svg";
 const SellerPage = (props) => {
 	const [restaurantPic, setRestaurantPic] = useState("");
 	const [restaurantName, setRestaurantName] = useState("");
@@ -13,6 +13,7 @@ const SellerPage = (props) => {
 	const [cartCount, setCartCount] = useState(0);
 	const [comments, setComments] = useState([]);
 	const [userEmail, setUserEmail] = useState("");
+	const [rating, setRating] = useState(0);
 	function classNames(...classes) {
 		return classes.filter(Boolean).join(" ");
 	}
@@ -49,6 +50,15 @@ const SellerPage = (props) => {
 			}
 		}
 	}, []);
+	useEffect(async () => {
+		let rate = 0;
+		comments.forEach((comment) => {
+			rate += +comment.rating.$numberDecimal;
+		});
+		rate = rate / comments.length;
+
+		setRating(rate.toFixed(1));
+	}, [comments]);
 	return (
 		<>
 			<div className="overflow-x-hidden">
@@ -63,14 +73,24 @@ const SellerPage = (props) => {
 						<h1 className="font-bold text-3xl md:text-4xl text-white col-span-7">
 							{restaurantName}
 						</h1>
-						<div className="flex items-end">
-							<h1 className="mt-5 text-lg md:text-2xl text-white col-span-7">
-								Cost For Two:{costForTwo}
-							</h1>
+						<div className="mt-10 grid grid-cols-2 items-center justify-center divide-x-2 ">
+							<div className="text-center text-lg md:text-xl pr-6 text-white col-span-1">
+								<h2>₹ {costForTwo}</h2>
+								<span className="font-bold uppercase text-gray-300 text-xs">
+									Cost For Two
+								</span>
+							</div>
+
+							<div className="text-center text-lg md:text-xl pl-6 text-white col-span-1">
+								<div className="flex items-center gap-2">
+									<StarIcon />
+									<h2>{rating}</h2>
+								</div>
+								<span className="font-bold uppercase text-gray-300 text-xs">
+									Rating
+								</span>
+							</div>
 						</div>
-						<h1 className="mt-5 text-lg md:text-2xl text-white col-span-7">
-							Rating: 0.0
-						</h1>
 					</div>
 				</div>
 				<Tab.Group>

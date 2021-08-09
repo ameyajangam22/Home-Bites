@@ -24,20 +24,21 @@ const AddComment = ({ handleAdd, sellerId }) => {
 		setShowModal(false);
 		handleAdd();
 	};
-	useEffect(async () => {
+	const handleAuth = async () => {
 		const response = await fetch("/me");
 		const data = await response.json();
 		if (!data.user) {
 			history.push("/search");
 			toast.error("Login as seller first");
 		}
-	}, []);
+		setShowModal(true);
+	};
 	return (
 		<>
 			<div className="flex justify-center mt-8">
 				<button
 					onClick={() => {
-						setShowModal(true);
+						handleAuth();
 					}}
 					className=" bg-green-600 rounded hover:bg-green-700 transition ease-in-out duration-300 px-4 py-2 text-white "
 				>

@@ -22,7 +22,7 @@ router.post("/addComment", upload.none(), (req, res) => {
 	const rating = req.body.rating;
 	const comment = req.body.comment;
 	const id = req.body.sellerId;
-	console.log("CGHECDC", req.user.displayName);
+	// console.log("CGHECDC", req.user.displayName);
 	Seller.findOneAndUpdate(
 		{ _id: id },
 		{
@@ -61,7 +61,7 @@ router.get("/deleteComment/:sellerId/:commentId", (req, res) => {
 });
 router.get("/getComments/:sellerId", (req, res) => {
 	const sellerId = req.params.sellerId;
-	console.log("reached");
+	// console.log("reached");
 
 	Seller.find({ _id: sellerId }, (error, doc) => {
 		if (error) throw errror;

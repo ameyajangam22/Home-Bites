@@ -1,4 +1,9 @@
+import { ReactComponent as CheckIcon } from "../../icons/check2.svg";
 const OrderComponent = (props) => {
+	const handleClick = async () => {
+		const response = await fetch("/updateOrderStatus/" + props.order_id);
+		props.onUpdate();
+	};
 	return (
 		<>
 			<div className="flex flex-col gap-6 rounded-md md:transform hover:scale-105 hover:shadow-md transition ease-in-out duration-300  bg-gray-50 p-4">
@@ -6,6 +11,16 @@ const OrderComponent = (props) => {
 					Order ID:{" "}
 					<span className="font-medium text-white">{props.order_id}</span>
 				</h2>
+				{props.type === "current" && (
+					<button
+						onClick={handleClick}
+						className="w-40 flex items-center justify-center gap-2 text-sm md:text-base md:w-80 ml-auto p-1 md:p-2 bg-green-500 text-white"
+					>
+						<CheckIcon />
+						Mark as Dispatched
+					</button>
+				)}
+
 				<h2 className="font-bold">
 					Cust Name:{" "}
 					<span className="font-medium text-gray-700">

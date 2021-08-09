@@ -35,6 +35,7 @@ const UserOrders = () => {
 								dishPic={order.dishPic}
 								quantity={order.quantity}
 								dishPrice={order.dishPrice}
+								dispatched={order.dispatched}
 							/>
 						);
 					})}

@@ -18,6 +18,7 @@ import Checkout from "./pages/Checkout";
 import SellerOrders from "./components/User/SellerOrders";
 import UserOrders from "./pages/UserOrders";
 import "cropperjs/dist/cropper.css";
+import SellerCompleted from "./components/User/SellerCompleted";
 
 function App() {
 	toast.configure();
@@ -60,6 +61,11 @@ function App() {
 					redirect="/"
 					customMessage="Login as user first"
 				/>
+				<Route
+					exact
+					path="/seller/completed"
+					component={SellerCompleted}
+				></Route>
 			</Switch>
 
 			<ToastContainer />

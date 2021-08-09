@@ -41,10 +41,10 @@ const PaymentComponent = ({
 					method: "POST",
 					body: formData,
 				});
-				const res2 = await fetch("/addUserOrders", {
-					method: "POST",
-					body: formData,
-				});
+				// const res2 = await fetch("/addUserOrders", {
+				// 	method: "POST",
+				// 	body: formData,
+				// });
 
 				toast.success("Payment Successful");
 				history.push("/userOrders");

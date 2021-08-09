@@ -98,23 +98,24 @@ const Search = () => {
 			>
 				{
 					<>
-						{filtered.map((seller) => {
-							return (
-								<Link
-									to={{
-										pathname: "/sellerPage",
-										state: {
-											sellerId: seller._id,
-										},
-									}}
-								>
-									<Card
-										restaurantName={seller.restaurantName}
-										imgUrl={seller.restaurantPic}
-									/>
-								</Link>
-							);
-						})}
+						{filtered.length > 0 &&
+							filtered.map((seller) => {
+								return (
+									<Link
+										to={{
+											pathname: "/sellerPage",
+											state: {
+												sellerId: seller._id,
+											},
+										}}
+									>
+										<Card
+											restaurantName={seller.restaurantName}
+											imgUrl={seller.restaurantPic}
+										/>
+									</Link>
+								);
+							})}
 					</>
 				}
 			</div>

@@ -3,6 +3,8 @@ import { ReactComponent as Logo } from "../../logo/hb-logo.svg";
 import { ReactComponent as UserIcon } from "../../icons/signin.svg";
 import { ReactComponent as LogOutIcon } from "../../icons/logout.svg";
 import { useEffect, useState } from "react";
+import { ReactComponent as CheckIcon } from "../../icons/check2.svg";
+import { ReactComponent as MenuIcon } from "../../icons/menu.svg";
 const SellerNav = ({ userName }) => {
 	const [showLinks, setShowLinks] = useState(true);
 	return (
@@ -21,14 +23,17 @@ const SellerNav = ({ userName }) => {
 						<p>Hello, {userName}!</p>
 
 						<div className="flex gap-2">
-							<UserIcon />
+							<MenuIcon />
 							<Link to="/seller">Menu</Link>
 						</div>
 						<div id="my-orders" className="flex gap-2">
 							<UserIcon />
 							<Link to="/seller/myOrders">My Orders</Link>
 						</div>
-
+						<div id="my-orders" className="flex gap-2">
+							<CheckIcon />
+							<Link to="/seller/completed">Completed Orders</Link>
+						</div>
 						<div id="seller-log-out" className="flex gap-2">
 							<LogOutIcon />
 							<a href="http://localhost:8000/seller/logout">Logout</a>

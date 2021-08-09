@@ -8,7 +8,6 @@ const CommentSection = ({ sellerId, comments, handleUpdate, userEmail }) => {
 	const [pageCount, setPageCount] = useState(0);
 	const commentsPerPage = 5;
 	// const [commentsRead, setCommentsRead] = useState(0);
-
 	const commentsRead = pageNumber * commentsPerPage;
 	const displayComments = comments.slice(
 		commentsRead,

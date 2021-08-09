@@ -15,28 +15,8 @@ const user = new Schema({
 	phoneNo: Number,
 	orders: [
 		{
-			order_id: {
-				type: String,
-			},
-			dishPic: {
-				type: String,
-			},
-			restaurantName: {
-				type: String,
-			},
-			quantity: {
-				type: Number,
-			},
-			dishName: {
-				type: String,
-			},
-			dishPrice: {
-				type: Number,
-			},
-			created_at: {
-				type: Date,
-				default: Date.now,
-			},
+			type: Schema.Types.ObjectId,
+			ref: "Order",
 		},
 	],
 });
