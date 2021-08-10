@@ -19,6 +19,9 @@ const seller = new Schema({
 		type: String,
 		required: true,
 	},
+	restaurantName_lower: {
+		type: String,
+	},
 	phoneNumber: {
 		type: Number,
 		required: true,

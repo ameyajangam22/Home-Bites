@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { ReactComponent as StarIcon } from "../../icons/star.svg";
+
 const Card = (props) => {
 	const [rating, setRating] = useState(0);
 	useEffect(() => {
@@ -43,6 +45,18 @@ const Card = (props) => {
 							<h2 className="text-gray-500 uppercase text-xs">Cost For Two</h2>
 						</div>
 					</div>
+					<Link
+						to={{
+							pathname: "/sellerPage",
+							state: {
+								sellerId: props.sellerId,
+							},
+						}}
+					>
+						<div className="mt-7 bg-gray-50 p-2 cursor-pointer hover:bg-gray-100 transition ease-in-out duration-300">
+							View Menu
+						</div>
+					</Link>
 				</div>
 			</div>
 		</>

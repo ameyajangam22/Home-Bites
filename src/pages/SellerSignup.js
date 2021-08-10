@@ -16,6 +16,7 @@ const SellerSignup = () => {
 	useEffect(() => {}, []);
 	const emailRegex =
 		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+	const restaurantNameRegex = new RegExp("^[0-9A-Za-z_\\s.-]+$");
 	const [seller, setSeller] = useState({
 		sname: "",
 		semail: "",
@@ -24,6 +25,7 @@ const SellerSignup = () => {
 		srname: "",
 	});
 	const [errorText, setErrorText] = useState("");
+	const [errorRestName, setErrorRestName] = useState("");
 	const [submitDisabled, setSubmitDisabled] = useState(true);
 	const [media, setMedia] = useState(null);
 	const [previewSource, setpreviewSource] = useState(null);
@@ -59,9 +61,19 @@ const SellerSignup = () => {
 			} else {
 				setErrorText("");
 			}
-			// fetch call to check if email is already registered or not [LEFT]
-			//>>>HERE
 		}
+		if (name == "srname") {
+			let isValid = true;
+			isValid = restaurantNameRegex.test(value);
+			if (value !== "" && !isValid) {
+				setErrorRestName(
+					"Only hyphens,spaces,periods and underscores are allowed"
+				);
+			} else {
+				setErrorRestName("");
+			}
+		}
+
 		setSeller((prev) => ({ ...prev, [name]: value }));
 	};
 	const handleSubmit = async (e) => {
@@ -81,7 +93,11 @@ const SellerSignup = () => {
 		const errorMsg = await fetch(`/emailVerify/${semail}`);
 		const data = await errorMsg.json();
 		await setErrorText(data.message);
-		if (data.message == "") {
+
+		const errorMsgRestName = await fetch(`/restNameVerify/${srname}`);
+		const data2 = await errorMsgRestName.json();
+		await setErrorRestName(data2.message);
+		if (data.message == "" && data2.message == "") {
 			const response = await axios.post(myConfig.CLOUDINARY_URL, formData);
 
 			if (response) {
@@ -110,6 +126,8 @@ const SellerSignup = () => {
 			}
 		} else {
 			scrollTo(100, 1000);
+			setButtonText("Submit");
+			document.getElementById("gear").classList.add("invisible");
 		}
 	};
 
@@ -128,7 +146,7 @@ const SellerSignup = () => {
 			srname,
 		}).every((item) => Boolean(item));
 		let isValid = emailRegex.test(semail);
-		isSeller && isValid && media
+		isSeller && isValid && media && errorRestName.length == 0
 			? setSubmitDisabled(false)
 			: setSubmitDisabled(true);
 	}, [seller, media]);
@@ -203,6 +221,7 @@ const SellerSignup = () => {
 						onChange={handleChange}
 						required
 					/>
+					<span className="text-red-500">{errorRestName}</span>
 					<label className="w-30 md:w-2/3 flex flex-col items-center px-4 m-auto bg-white rounded-md shadow-md tracking-wide  border border-blue cursor-pointer hover:bg-yellow-300 hover:text-white text-black ease-linear transition-all duration-150">
 						<CloudIcon />
 						<span className="mt-2 text-base leading-normal">

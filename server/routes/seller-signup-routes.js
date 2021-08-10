@@ -15,6 +15,16 @@ router.get("/emailVerify/:emailId", (req, res) => {
 		}
 	});
 });
+router.get("/restNameVerify/:restaurantName", (req, res) => {
+	let restaurantName = req.params.restaurantName.toLowerCase();
+	Seller.findOne({ restaurantName_lower: restaurantName }, (error, doc) => {
+		if (doc) {
+			res.json({ message: "Restaurant name already exists" });
+		} else {
+			res.json({ message: "" });
+		}
+	});
+});
 router.post("/uploadPic", upload.none(), async (req, res) => {
 	try {
 		// console.log("req.body", req.body);
@@ -49,6 +59,7 @@ router.post("/addSeller", async (req, res) => {
 		sellerEmail: req.body.semail,
 		sellerPassword: req.body.spassword,
 		restaurantName: req.body.srname,
+		restaurantName_lower: req.body.srname.toLowerCase(),
 		phoneNumber: req.body.sphone,
 		restaurantPic: req.body.restaurantPic,
 		cloudinaryId: req.body.cloudinaryId,

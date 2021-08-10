@@ -86,6 +86,7 @@ const Search = () => {
 								<SearchCard
 									restaurantName={seller.restaurantName}
 									imgUrl={seller.restaurantPic}
+									sellerId={seller._id}
 								/>
 							</Link>
 						);
@@ -101,21 +102,13 @@ const Search = () => {
 						{filtered.length > 0 &&
 							filtered.map((seller) => {
 								return (
-									<Link
-										to={{
-											pathname: "/sellerPage",
-											state: {
-												sellerId: seller._id,
-											},
-										}}
-									>
-										<Card
-											restaurantName={seller.restaurantName}
-											imgUrl={seller.restaurantPic}
-											reviews={seller.reviews}
-											costForTwo={seller.costForTwo}
-										/>
-									</Link>
+									<Card
+										restaurantName={seller.restaurantName}
+										imgUrl={seller.restaurantPic}
+										reviews={seller.reviews}
+										costForTwo={seller.costForTwo}
+										sellerId={seller._id}
+									/>
 								);
 							})}
 					</>
