@@ -21,7 +21,7 @@ const SellerNav = ({ userName }) => {
 				{showLinks && (
 					<div
 						id="seller-links"
-						className="ml-9 gap-2 md:gap-10 flex mr-10  text-sm md:text-base"
+						className="ml-9 gap-4 md:gap-10 flex mr-10  text-sm md:text-base"
 					>
 						<p>Hello, {userName}!</p>
 						<div

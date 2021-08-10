@@ -11,12 +11,16 @@ router.get("/getSeller/:sellerId", (req, res) => {
 	});
 });
 router.get("/getSellers", (req, res) => {
-	Seller.find({}, { restaurantName: 1, restaurantPic: 1 }, (error, doc) => {
-		if (error) console.log(error);
-		else {
-			res.json(doc);
+	Seller.find(
+		{},
+		{ restaurantName: 1, restaurantPic: 1, reviews: 1, costForTwo: 1 },
+		(error, doc) => {
+			if (error) console.log(error);
+			else {
+				res.json(doc);
+			}
 		}
-	});
+	);
 });
 router.post("/addComment", upload.none(), (req, res) => {
 	const rating = req.body.rating;

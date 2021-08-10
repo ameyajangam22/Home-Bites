@@ -112,6 +112,8 @@ const Search = () => {
 										<Card
 											restaurantName={seller.restaurantName}
 											imgUrl={seller.restaurantPic}
+											reviews={seller.reviews}
+											costForTwo={seller.costForTwo}
 										/>
 									</Link>
 								);
