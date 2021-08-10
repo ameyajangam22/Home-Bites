@@ -14,6 +14,10 @@ module.exports = {
 					200: "#888883",
 				},
 			},
+
+			height: {
+				xl: "30rem",
+			},
 		},
 	},
 	variants: {
