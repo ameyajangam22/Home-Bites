@@ -157,7 +157,7 @@ const SellerPage = (props) => {
 							</div>
 						</Tab.Panel>
 						<Tab.Panel>
-							<ContactSeller />
+							<ContactSeller sellerId={props.history.location.state.sellerId} />
 						</Tab.Panel>
 					</Tab.Panels>
 				</Tab.Group>
