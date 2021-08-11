@@ -101,18 +101,18 @@ const SellerHome = () => {
 		<>
 			<SellerNav userName={userName} />
 			{/* console.log(restaurantPic); */}
-			<div className="flex bg-gray-900 p-5 md:p-10 gap-10  items-start">
+			<div className="flex bg-gray-900 p-5 md:p-10 gap-4  items-start">
 				<img
 					className="aspect-w-16 aspect-h-9 w-40 md:w-80"
 					src={restaurantPic}
 					alt="rest-pic"
 				/>
 				<div>
-					<h1 className="font-bold text-2xl md:text-4xl text-white col-span-7">
+					<h1 className="font-bold text-2xl md:text-4xl text-white ">
 						{restaurantName}
 					</h1>
-					<div className="flex items-end">
-						<h1 className="mt-5 text-lg  md:text-2xl text-white col-span-7">
+					<div className="flex flex-col md:flex-row gap-2  items-center md:items-end">
+						<h1 className="mt-5 text-lg  md:text-2xl text-white">
 							Cost For Two:<span className="ml-1">{costForTwo}</span>
 						</h1>
 

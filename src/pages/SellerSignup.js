@@ -29,6 +29,7 @@ const SellerSignup = () => {
 	const [submitDisabled, setSubmitDisabled] = useState(true);
 	const [media, setMedia] = useState(null);
 	const [previewSource, setpreviewSource] = useState(null);
+	const [showGear, setShowGear] = useState(false);
 	const [fileUploadText, setfileUploadText] = useState(
 		"Upload your resto image"
 	);
@@ -83,7 +84,7 @@ const SellerSignup = () => {
 		// console.log("submitmedia", media);
 		setSubmitDisabled(true);
 		setButtonText("Processing...");
-		document.getElementById("gear").classList.remove("invisible");
+		setShowGear(true);
 		let formData = new FormData();
 
 		formData.append("file", media);
@@ -127,7 +128,7 @@ const SellerSignup = () => {
 		} else {
 			scrollTo(100, 1000);
 			setButtonText("Submit");
-			document.getElementById("gear").classList.add("invisible");
+			setShowGear(false);
 		}
 	};
 
@@ -173,7 +174,7 @@ const SellerSignup = () => {
 			</div>
 
 			<form onSubmit={handleSubmit}>
-				<div className=" top-12  h-full relative flex flex-col gap-4 justify-center p-12 w-4/5 md:w-1/2 m-auto">
+				<div className=" top-12  h-full relative flex flex-col gap-4 justify-center p-12 w-full md:w-1/2 m-auto">
 					<input
 						type="text"
 						name="sname"
@@ -248,12 +249,14 @@ const SellerSignup = () => {
 					<button
 						type="submit"
 						id="submitbtn"
-						className="flex justify-center items-center mt-5 disabled:opacity-50 p-2 rounded-md bg-yellow-200 w-4/5 md:w-80 m-auto"
+						className="flex justify-center items-center mt-5 disabled:opacity-50 p-2 rounded-md bg-yellow-200 w-full md:w-80 m-auto"
 						disabled
 					>
-						<div id="gear" class="invisible">
-							<GearIcon />
-						</div>
+						{showGear && (
+							<div id="gear">
+								<GearIcon />
+							</div>
+						)}
 						{buttonText}
 					</button>
 				</div>

@@ -3,7 +3,8 @@ import { ReactComponent as DownArrow } from "../../icons/down-arrow.svg";
 import { ReactComponent as UpArrow } from "../../icons/up-arrow.svg";
 import { ReactComponent as DeleteIcon } from "../../icons/delete-icon.svg";
 import { ReactComponent as CloudIcon } from "../../icons/cloud-upload.svg";
-import { useState, Fragment } from "react";
+import { ReactComponent as GearIcon } from "../../icons/gear-icon.svg";
+import { useState, Fragment, useEffect } from "react";
 import Modal from "../Common/Modal";
 import SellerDish from "./SellerDish";
 import axios from "axios";
@@ -17,6 +18,9 @@ const SellerCategory = (props) => {
 	const [showCropperModal, setShowCropperModal] = useState(false);
 	const [media, setMedia] = useState(null);
 	const [previewSource, setpreviewSource] = useState(null);
+	const [showGear, setShowGear] = useState(false);
+	const [buttonText, setButtonText] = useState("Submit");
+	const [submitDisabled, setSubmitDisabled] = useState(false);
 	const [dish, setDish] = useState({
 		foodName: "",
 		foodPrice: 0,
@@ -65,6 +69,9 @@ const SellerCategory = (props) => {
 		console.log(dish);
 
 		// UPLOAD IMAGE TO CLOUDINARY
+		setSubmitDisabled(true);
+		setButtonText("Processing");
+		setShowGear(true);
 		let formData2 = new FormData();
 		formData2.append("file", media);
 		formData2.append("upload_preset", "ml_default");
@@ -88,8 +95,14 @@ const SellerCategory = (props) => {
 		setpreviewSource(null);
 		setMedia(null);
 		setShowModal(false);
+		setShowGear(false);
+		setButtonText("Submit");
 		props.onChange();
 	};
+	useEffect(() => {
+		let submitbtn = document.getElementById("submitCat");
+		if (submitbtn) submitbtn.disabled = submitDisabled;
+	}, [submitDisabled]);
 	return (
 		<>
 			<div class="w-full flex justify-between p-2 px-5 items-center hover:bg-gray-100 transition ease-in-out duration-200  mt-1 border-1 border-black text-lg font-bold bg-white">
@@ -214,9 +227,15 @@ const SellerCategory = (props) => {
 						)}
 						<button
 							onClick={handleSubmit}
-							class=" bg-green-500 text-lg px-8 py-2 relative  rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
+							id="submitCat"
+							className="disabled:opacity-50 flex justify-center items-center  bg-green-500 text-lg px-8 py-2  rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
 						>
-							Submit
+							{showGear && (
+								<div id="gear">
+									<GearIcon />
+								</div>
+							)}
+							{buttonText}
 						</button>
 					</div>
 				</Modal>
