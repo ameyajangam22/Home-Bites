@@ -49,7 +49,7 @@ const Search = () => {
 	};
 	useEffect(() => {
 		let matches = sellers.filter((seller) => {
-			const regex = new RegExp(`^${searchInput}`, "gi");
+			// const regex = new RegExp(`^${searchInput}`, "gi");
 			let stringToCheck = seller.restaurantName;
 			let inp = searchInput.toLowerCase();
 			if (stringToCheck.toLowerCase().includes(inp)) return true;
@@ -71,7 +71,7 @@ const Search = () => {
 				/>
 				<div
 					id="suggest-area"
-					className=" hidden min-h-auto max-h-72 overflow-y-auto shadow-lg bg-white"
+					className="z-50 relative hidden min-h-auto max-h-72 overflow-y-auto shadow-lg bg-white"
 				>
 					{searches.map((seller) => {
 						return (
@@ -95,7 +95,7 @@ const Search = () => {
 			</div>
 			<div
 				id="result-area"
-				className="hidden p-5 grid grid-cols-1 col-span-1 justify-between gap-5 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 "
+				className="z-10 relative hidden p-5 grid grid-cols-1 col-span-1 justify-between gap-5 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 "
 			>
 				{
 					<>

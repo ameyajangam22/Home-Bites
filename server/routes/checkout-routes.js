@@ -2,7 +2,6 @@ const express = require("express");
 const upload = require("../../utils/multer");
 const Seller = require("../models/sellerModel");
 const User = require("../models/userModel");
-const _ = require("lodash");
 const router = express.Router();
 const Order = require("../models/orderModel");
 const mongoose = require("mongoose");

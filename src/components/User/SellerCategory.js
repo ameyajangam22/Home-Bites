@@ -93,6 +93,7 @@ const SellerCategory = (props) => {
 			body: formData,
 		});
 		setpreviewSource(null);
+		setSubmitDisabled(false);
 		setMedia(null);
 		setShowModal(false);
 		setShowGear(false);
