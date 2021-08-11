@@ -19,7 +19,7 @@ const Card = (props) => {
 	}, []);
 	return (
 		<>
-			<div className="w-60 h-80  p-1 rounded-md overflow-hidden hover:shadow-md flex flex-col justify-center items-center">
+			<div className="w-60 h-80 m-auto  p-2	rounded-md  hover:shadow-md flex flex-col justify-center items-center">
 				<img
 					src={props.imgUrl}
 					style={{ aspectRatio: "127/80" }}
