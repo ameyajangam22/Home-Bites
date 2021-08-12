@@ -59,7 +59,7 @@ const Search = () => {
 			if (a.overallRating.$numberDecimal === b.overallRating.$numberDecimal) {
 				return a.costForTwo - b.costForTwo;
 			}
-			return a.overallRating.$numberDecimal - b.overallRating.$numberDecimal;
+			return b.overallRating.$numberDecimal - a.overallRating.$numberDecimal;
 		});
 		console.log("yoooooooooooo", data);
 		setSortByRating(false);
