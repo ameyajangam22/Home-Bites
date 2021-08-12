@@ -6,6 +6,7 @@ import CommentComponent from "../Common/CommentComponent";
 const CommentSection = ({ sellerId, comments, handleUpdate, userEmail }) => {
 	const [pageNumber, setPageNumber] = useState(0);
 	const [pageCount, setPageCount] = useState(0);
+	const [isNewPageAdded, setIsNewPageAdded] = useState(false);
 	const commentsPerPage = 5;
 	// const [commentsRead, setCommentsRead] = useState(0);
 	const commentsRead = pageNumber * commentsPerPage;
@@ -19,11 +20,13 @@ const CommentSection = ({ sellerId, comments, handleUpdate, userEmail }) => {
 		setPageNumber(selected);
 	};
 	useEffect(async () => {
+		setIsNewPageAdded(true);
+		setPageNumber(0);
 		const count = Math.ceil(comments.length / commentsPerPage);
 		setPageCount(count);
 		console.log("comments in commentsection", comments);
 		// fetchNewComments();
-	}, []);
+	}, [comments, pageCount]);
 
 	return (
 		<>
@@ -52,6 +55,7 @@ const CommentSection = ({ sellerId, comments, handleUpdate, userEmail }) => {
 							rating={comment.rating}
 							review={comment.review}
 							commentId={comment._id}
+							initalPage={0}
 							sellerId={sellerId}
 							onDel={() => {
 								handleUpdate(sellerId);

@@ -64,6 +64,7 @@ const SellerPage = (props) => {
 		if (comments.length > 0) rate = rate / comments.length;
 
 		setRating(rate.toFixed(1));
+		rate = rate.toFixed(1);
 		let formData = new FormData();
 		formData.append("sellerId", params.sellerId);
 		formData.append("overallRating", rate);
@@ -161,6 +162,7 @@ const SellerPage = (props) => {
 						<Tab.Panel>
 							<div className="px-10">
 								<CommentSection
+									key={params.sellerId}
 									sellerId={params.sellerId}
 									comments={comments}
 									handleUpdate={(sellerId) => {
