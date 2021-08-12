@@ -45,8 +45,8 @@ const SellerPage = (props) => {
 		const data = await resp.json();
 		console.log("newData", data);
 		// SAVE SESSION KARNA HAI IDHAR LOCAL STORAGEEE
-		if (!data.user) localStorage.setItem("orders", []);
-		else {
+
+		if (data.user) {
 			let cartFetchcounter = 0;
 			setUserEmail(data.user.email);
 			if (localStorage.getItem("orders")) {
