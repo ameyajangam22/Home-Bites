@@ -150,14 +150,7 @@ const Search = () => {
 				>
 					{searches.map((seller) => {
 						return (
-							<Link
-								to={{
-									pathname: "/sellerPage",
-									state: {
-										sellerId: seller._id,
-									},
-								}}
-							>
+							<Link to={`/sellerPage/${seller._id}`}>
 								<SearchCard
 									restaurantName={seller.restaurantName}
 									imgUrl={seller.restaurantPic}

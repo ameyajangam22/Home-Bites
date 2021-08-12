@@ -160,7 +160,7 @@ const SellerPage = (props) => {
 							/>
 						</Tab.Panel>
 						<Tab.Panel>
-							<div className="px-10">
+							<div className="px-3 md:px-10">
 								<CommentSection
 									key={params.sellerId}
 									sellerId={params.sellerId}
