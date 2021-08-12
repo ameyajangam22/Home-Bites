@@ -6,7 +6,10 @@ const Modal = (props) => {
 	};
 	return (
 		<>
-			<div className="z-20 top-20 flex justify-center overflow-x-hidden  fixed inset-0  outline-none focus:outline-none">
+			<div
+				style={{ zIndex: 999 }}
+				className="z-20 top-20 flex justify-center overflow-x-hidden  fixed inset-0  outline-none focus:outline-none"
+			>
 				{/*content*/}
 
 				<Transition appear show={props.showModal}>
