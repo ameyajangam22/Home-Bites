@@ -1,10 +1,14 @@
 import ReactStars from "react-rating-stars-component";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+
 const CommentComponent = (props) => {
+	const history = useHistory();
 	const handleDelete = async () => {
 		const response = await fetch(
 			"/deleteComment/" + props.sellerId + "/" + props.commentId
 		);
+		history.push("/sellerPage/" + props.sellerId);
 		props.onDel();
 		toast.success("Comment deleted successfully");
 	};

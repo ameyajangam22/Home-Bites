@@ -9,11 +9,14 @@ const AddComment = ({ handleAdd, sellerId }) => {
 	const [rating, setRating] = useState(0);
 	const [showModal, setShowModal] = useState(false);
 	const [comment, setComment] = useState("");
+	const [submitDisabled, setSubmitDisabled] = useState(false);
 	const handleChange = (e) => {
 		setComment(e.target.value);
 	};
 	const handleSubmit = async () => {
 		let formData = new FormData();
+		setSubmitDisabled(true);
+		console.log("WHAT WAS THE RATING", rating);
 		formData.append("sellerId", sellerId);
 		formData.append("rating", rating);
 		formData.append("comment", comment);
@@ -22,7 +25,10 @@ const AddComment = ({ handleAdd, sellerId }) => {
 			body: formData,
 		});
 		setShowModal(false);
+		setSubmitDisabled(false);
+
 		handleAdd();
+		history.push("/sellerPage/" + sellerId);
 	};
 	const handleAuth = async () => {
 		const response = await fetch("/me");
@@ -33,6 +39,10 @@ const AddComment = ({ handleAdd, sellerId }) => {
 		}
 		setShowModal(true);
 	};
+	useEffect(() => {
+		let submitbtn = document.getElementById("submitCom");
+		if (submitbtn) submitbtn.disabled = submitDisabled;
+	}, [submitDisabled]);
 	return (
 		<>
 			<div className="flex justify-center mt-8">
@@ -73,8 +83,9 @@ const AddComment = ({ handleAdd, sellerId }) => {
 							className="shadow-2xl p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
 						></textarea>
 						<button
+							id="submitCom"
 							onClick={handleSubmit}
-							className="bg-green-500 p-2 mt-4 text-white rounded hover:bg-green-600 transition ease-in-out duration-300 "
+							className="disabled:opacity-40 bg-green-500 p-2 mt-4 text-white rounded hover:bg-green-600 transition ease-in-out duration-300 "
 						>
 							Submit
 						</button>

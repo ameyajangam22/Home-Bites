@@ -3,23 +3,9 @@ import { Link } from "react-router-dom";
 import { ReactComponent as StarIcon } from "../../icons/star.svg";
 
 const Card = (props) => {
-	const [rating, setRating] = useState(0);
-	useEffect(() => {
-		let rate = 0;
-		let comments = props.reviews;
-		console.log(comments);
-		if (comments) {
-			comments.forEach((comment) => {
-				rate += +comment.rating.$numberDecimal;
-			});
-			if (comments.length > 0) rate = rate / comments.length;
-
-			setRating(rate.toFixed(1));
-		}
-	}, []);
 	return (
 		<>
-			<div className="w-60 h-80 m-auto  p-2	rounded-md  hover:shadow-md flex flex-col justify-center items-center">
+			<div className="z-10 relative w-60 h-80 m-auto  p-2	rounded-md  hover:shadow-md flex flex-col justify-center items-center">
 				<img
 					src={props.imgUrl}
 					style={{ aspectRatio: "127/80" }}
@@ -34,7 +20,7 @@ const Card = (props) => {
 								<div className="text-white">
 									<StarIcon />
 								</div>
-								{rating}
+								{props.overallRating.$numberDecimal}
 							</div>
 							<div className="flex text-gray-500 uppercase text-xs text-center">
 								Rating
@@ -45,15 +31,8 @@ const Card = (props) => {
 							<h2 className="text-gray-500 uppercase text-xs">Cost For Two</h2>
 						</div>
 					</div>
-					<Link
-						to={{
-							pathname: "/sellerPage",
-							state: {
-								sellerId: props.sellerId,
-							},
-						}}
-					>
-						<div className="mt-7 bg-gray-50 p-2 cursor-pointer hover:bg-gray-100 transition ease-in-out duration-300">
+					<Link to={`/sellerPage/${props.sellerId}`}>
+						<div className="z-10 relative mt-7 bg-gray-50 p-2 cursor-pointer hover:bg-gray-100 transition ease-in-out duration-300">
 							View Menu
 						</div>
 					</Link>

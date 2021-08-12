@@ -32,7 +32,11 @@ function App() {
 				<Route exact path="/" component={Home}></Route>
 				<Route exact path="/search" component={Search}></Route>
 				<Route exact path="/sellerLogin" component={SellerLogin}></Route>
-				<Route exact path="/sellerPage" component={SellerPage}></Route>
+				<Route
+					exact
+					path="/sellerPage/:sellerId"
+					component={SellerPage}
+				></Route>
 				<ProtectedRoute
 					exact
 					path="/sellerSignup"

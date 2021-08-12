@@ -5,7 +5,10 @@ import SellerMenu from "../components/User/SellerMenu";
 import CommentSection from "../components/User/CommentSection";
 import ContactSeller from "../components/User/ContactSeller";
 import { ReactComponent as StarIcon } from "../icons/star.svg";
+import { useParams } from "react-router-dom";
+
 const SellerPage = (props) => {
+	const params = useParams();
 	const [restaurantPic, setRestaurantPic] = useState("");
 	const [restaurantName, setRestaurantName] = useState("");
 	const [costForTwo, setCostForTwo] = useState("");
@@ -24,7 +27,7 @@ const SellerPage = (props) => {
 		setComments(data2);
 	};
 	useEffect(async () => {
-		const sellerId = props.history.location.state.sellerId;
+		const sellerId = params.sellerId;
 		const response = await fetch(`/getSeller/${sellerId}`);
 		const data = await response.json();
 		setRestaurantName(data[0].restaurantName);
@@ -58,6 +61,13 @@ const SellerPage = (props) => {
 		if (comments.length > 0) rate = rate / comments.length;
 
 		setRating(rate.toFixed(1));
+		let formData = new FormData();
+		formData.append("sellerId", params.sellerId);
+		formData.append("overallRating", rate);
+		const response2 = await fetch("/updateOverallRating", {
+			method: "POST",
+			body: formData,
+		});
 	}, [comments]);
 	return (
 		<>
@@ -147,7 +157,7 @@ const SellerPage = (props) => {
 						<Tab.Panel>
 							<div className="px-10">
 								<CommentSection
-									sellerId={props.history.location.state.sellerId}
+									sellerId={params.sellerId}
 									comments={comments}
 									handleUpdate={(sellerId) => {
 										fetchComments(sellerId);
@@ -157,7 +167,7 @@ const SellerPage = (props) => {
 							</div>
 						</Tab.Panel>
 						<Tab.Panel>
-							<ContactSeller sellerId={props.history.location.state.sellerId} />
+							<ContactSeller sellerId={params.sellerId} />
 						</Tab.Panel>
 					</Tab.Panels>
 				</Tab.Group>

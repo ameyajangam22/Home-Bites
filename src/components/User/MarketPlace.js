@@ -23,6 +23,7 @@ const MarketPlace = () => {
 							reviews={seller.reviews}
 							costForTwo={seller.costForTwo}
 							sellerId={seller._id}
+							overallRating={seller.overallRating}
 						/>
 					);
 				})}

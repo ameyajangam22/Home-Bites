@@ -13,11 +13,32 @@ router.get("/getSeller/:sellerId", (req, res) => {
 router.get("/getSellers", (req, res) => {
 	Seller.find(
 		{},
-		{ restaurantName: 1, restaurantPic: 1, reviews: 1, costForTwo: 1 },
+		{
+			restaurantName: 1,
+			restaurantPic: 1,
+			reviews: 1,
+			costForTwo: 1,
+			overallRating: 1,
+		},
 		(error, doc) => {
 			if (error) console.log(error);
 			else {
 				res.json(doc);
+			}
+		}
+	);
+});
+router.post("/updateOverallRating", upload.none(), (req, res) => {
+	const rating = req.body.overallRating;
+	const sellerId = req.body.sellerId;
+	Seller.findOneAndUpdate(
+		{ _id: sellerId },
+		{ $set: { overallRating: rating } },
+		(error, doc) => {
+			if (error) throw error;
+			else {
+				console.log("Rating updated");
+				res.send("ok");
 			}
 		}
 	);

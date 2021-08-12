@@ -14,6 +14,7 @@ const Search = () => {
 	const [searchInput, setSearchInput] = useState("");
 	const [isClicked, setIsClicked] = useState(false);
 	const [sortByCost, setSortByCost] = useState(false);
+	const [sortByRating, setSortByRating] = useState(false);
 	const [searches, setSearches] = useState([]);
 	const suggestArea = document.querySelector("#suggest-area");
 	let ResultData;
@@ -52,10 +53,27 @@ const Search = () => {
 		if (searchInput == "") setFiltered([]);
 		else setFiltered(matches);
 	};
-	const sortByRating = () => {};
+	const sortByRatingClicked = () => {
+		const data = [...filtered];
+		data.sort((a, b) => {
+			if (a.overallRating.$numberDecimal === b.overallRating.$numberDecimal) {
+				return a.costForTwo - b.costForTwo;
+			}
+			return a.overallRating.$numberDecimal - b.overallRating.$numberDecimal;
+		});
+		console.log("yoooooooooooo", data);
+		setSortByRating(false);
+		setFiltered(data);
+	};
 	const sortByCostClicked = () => {
 		const data = [...filtered];
 		data.sort((a, b) => {
+			if (a.costForTwo === b.costForTwo) {
+				if (a.overallRating.$numberDecimal === b.overallRating.$numberDecimal) {
+					return a.restaurantName - b.restaurantName;
+				}
+				return a.overallRating.$numberDecimal - b.overallRating.$numberDecimal;
+			}
 			return a.costForTwo > b.costForTwo ? 1 : -1;
 		});
 		console.log("yoooooooooooo", data);
@@ -106,7 +124,8 @@ const Search = () => {
 							<div className="grid grid-cols-1 md:w-60 w-48 shadow-lg divide-y-2 ">
 								<div
 									onClick={() => {
-										sortByRating();
+										setSortByRating(true);
+										sortByRatingClicked();
 									}}
 									className="hover:bg-gray-200 transition ease-in-out duration-300 p-4 cursor-pointer col-span-1 bg-gray-50"
 								>

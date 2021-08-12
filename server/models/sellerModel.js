@@ -36,6 +36,10 @@ const seller = new Schema({
 		type: Number,
 		default: 0,
 	},
+	overallRating: {
+		type: mongoose.Decimal128,
+		default: 0,
+	},
 	menu: [
 		{
 			categoryName: {
