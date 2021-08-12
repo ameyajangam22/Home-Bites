@@ -9,7 +9,7 @@ const ContactSeller = ({ sellerId }) => {
 	}, []);
 	return (
 		<>
-			<div className="relative w-3/4 md:w-2/5 flex m-auto mt-20 md:mt-5 p-5  bg-gray-100 rounded-md shadow-4xl h-60">
+			<div className="relative w-11/12 md:w-2/5 flex m-auto mt-20 md:mt-5 p-5  bg-gray-100 rounded-md shadow-4xl h-60">
 				<div className="flex flex-col gap-4">
 					<h2 className="font-bold">
 						Seller Name:{" "}

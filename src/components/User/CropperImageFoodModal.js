@@ -26,6 +26,7 @@ const CropImageFoodModal = ({
 			<Transition appear show={showModal} as={Fragment}>
 				<Dialog
 					as="div"
+					style={{ zIndex: 1000 }}
 					className="fixed inset-0 z-30 overflow-y-auto"
 					onClose={() => {
 						setShowModal(false);
