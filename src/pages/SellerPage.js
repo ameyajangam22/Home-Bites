@@ -15,6 +15,7 @@ const SellerPage = (props) => {
 	const [menu, setMenu] = useState([]);
 	const [cartCount, setCartCount] = useState(0);
 	const [comments, setComments] = useState([]);
+	const [commentsUpdated, setCommentsUpdated] = useState(false);
 	const [userEmail, setUserEmail] = useState("");
 	const [rating, setRating] = useState(0);
 	function classNames(...classes) {
@@ -25,6 +26,7 @@ const SellerPage = (props) => {
 		const data2 = await response2.json();
 		data2.reverse();
 		setComments(data2);
+		setCommentsUpdated(false);
 	};
 	useEffect(async () => {
 		const sellerId = params.sellerId;
@@ -35,6 +37,7 @@ const SellerPage = (props) => {
 		setCostForTwo(data[0].costForTwo);
 		setMenu(data[0].menu);
 		// console.log(data);
+
 		fetchComments(sellerId);
 	}, []);
 	useEffect(async () => {
@@ -68,6 +71,7 @@ const SellerPage = (props) => {
 			method: "POST",
 			body: formData,
 		});
+		console.log("UPDATED COMMENTS", comments);
 	}, [comments]);
 	return (
 		<>
@@ -160,6 +164,7 @@ const SellerPage = (props) => {
 									sellerId={params.sellerId}
 									comments={comments}
 									handleUpdate={(sellerId) => {
+										setCommentsUpdated(true);
 										fetchComments(sellerId);
 									}}
 									userEmail={userEmail}

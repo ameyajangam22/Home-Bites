@@ -21,6 +21,7 @@ const CommentSection = ({ sellerId, comments, handleUpdate, userEmail }) => {
 	useEffect(async () => {
 		const count = Math.ceil(comments.length / commentsPerPage);
 		setPageCount(count);
+		console.log("comments in commentsection", comments);
 		// fetchNewComments();
 	}, []);
 
@@ -44,10 +45,11 @@ const CommentSection = ({ sellerId, comments, handleUpdate, userEmail }) => {
 				{displayComments.map((comment) => {
 					return (
 						<CommentComponent
+							key={comment._id}
 							userEmail={userEmail}
 							userEmailCommented={comment.userEmail}
 							userName={comment.userName}
-							rating={comment.rating.$numberDecimal}
+							rating={comment.rating}
 							review={comment.review}
 							commentId={comment._id}
 							sellerId={sellerId}

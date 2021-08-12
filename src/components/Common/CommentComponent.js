@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -12,6 +13,10 @@ const CommentComponent = (props) => {
 		props.onDel();
 		toast.success("Comment deleted successfully");
 	};
+	useEffect(() => {
+		console.log(props);
+		console.log("MA NEW RATING", +props.rating.$numberDecimal);
+	}, []);
 	return (
 		<>
 			<div className="flex">
@@ -24,7 +29,7 @@ const CommentComponent = (props) => {
 							{" "}
 							<ReactStars
 								count={5}
-								value={props.rating}
+								value={+props.rating.$numberDecimal}
 								edit={false}
 								activeColor="#ffd700"
 							/>

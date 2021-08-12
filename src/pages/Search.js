@@ -141,8 +141,6 @@ const Search = () => {
 									By Cost
 								</div>
 							</div>
-
-							<img src="/solutions.jpg" alt="" />
 						</Popover.Panel>
 					</Transition>
 				</Popover>
