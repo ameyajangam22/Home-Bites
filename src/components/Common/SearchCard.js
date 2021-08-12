@@ -1,8 +1,8 @@
 const SearchCard = (props) => {
 	return (
 		<>
-			<div className="border-b-2 w-full hover:bg-gray-200 transition ease-in-out duration-200 bg-white p-3 text-base text-black">
-				<div class="flex items-center">
+			<div className="relative border-b-2 w-full hover:bg-gray-200 transition ease-in-out duration-200 bg-white p-3 text-base text-black">
+				<div class=" flex items-center">
 					<img
 						className="w-24 rounded-md"
 						style={{

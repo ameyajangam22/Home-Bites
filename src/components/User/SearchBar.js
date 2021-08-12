@@ -7,7 +7,7 @@ const SearchBar = (props) => {
 		props.onChange(value);
 	};
 	return (
-		<div>
+		<div className="col-span-9">
 			<div class="bg-white flex items-center rounded-md border-2 border-gray-200">
 				<input
 					class="rounded-l-md w-full px-6 text-gray-700 leading-tight 

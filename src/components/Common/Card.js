@@ -19,14 +19,14 @@ const Card = (props) => {
 	}, []);
 	return (
 		<>
-			<div className="z-10 relative w-60 h-80 m-auto  p-2	rounded-md  hover:shadow-md flex flex-col justify-center items-center">
+			<div className="w-60 h-80 m-auto  p-2	rounded-md  hover:shadow-md flex flex-col justify-center items-center">
 				<img
 					src={props.imgUrl}
 					style={{ aspectRatio: "127/80" }}
 					className=" w-3/4 md:w-11/12	"
 					alt="myidli"
 				/>
-				<div className="px-1 py-4 w-full text-center">
+				<div className=" px-1 py-4 w-full text-center">
 					<div className="font-bold text-xl mb-2">{props.restaurantName}</div>
 					<div className="grid grid-cols-2">
 						<div className="flex flex-col">

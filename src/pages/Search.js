@@ -1,17 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import Card from "../components/Common/Card";
 import SearchCard from "../components/Common/SearchCard";
 import Navbar from "../components/User/Navbar";
 import SearchBar from "../components/User/SearchBar";
+import { ReactComponent as SortIcon } from "../icons/sort-icon.svg";
+import { Popover, Transition } from "@headlessui/react";
+import ResultArea from "../components/User/ResultArea";
 
 const Search = () => {
 	const [sellers, setSellers] = useState([]);
 	const [filtered, setFiltered] = useState([]);
 	const [searchInput, setSearchInput] = useState("");
 	const [isClicked, setIsClicked] = useState(false);
+	const [sortByCost, setSortByCost] = useState(false);
 	const [searches, setSearches] = useState([]);
 	const suggestArea = document.querySelector("#suggest-area");
+	let ResultData;
 	useEffect(() => {
 		if (suggestArea) {
 			if (searchInput === "") {
@@ -47,6 +52,16 @@ const Search = () => {
 		if (searchInput == "") setFiltered([]);
 		else setFiltered(matches);
 	};
+	const sortByRating = () => {};
+	const sortByCostClicked = () => {
+		const data = [...filtered];
+		data.sort((a, b) => {
+			return a.costForTwo > b.costForTwo ? 1 : -1;
+		});
+		console.log("yoooooooooooo", data);
+		setSortByCost(false);
+		setFiltered(data);
+	};
 	useEffect(() => {
 		let matches = sellers.filter((seller) => {
 			// const regex = new RegExp(`^${searchInput}`, "gi");
@@ -57,10 +72,13 @@ const Search = () => {
 		});
 		setSearches(matches);
 	}, [searchInput]);
+	useEffect(() => {
+		console.log("cjange", filtered);
+	}, [filtered]);
 	return (
 		<>
 			<Navbar />
-			<div class="p-8 w-full md:w-2/3 m-auto">
+			<div class="z-40 grid grid-cols-10 p-8 items-center gap-3 md:gap-x-10 w-full md:w-2/3 m-auto">
 				<SearchBar
 					onChange={(val) => {
 						setSearchInput(val);
@@ -69,9 +87,49 @@ const Search = () => {
 						handleSearch();
 					}}
 				/>
+
+				<Popover className="relative">
+					<Popover.Button>
+						<div className="m-auto transition ease-in-out duration-300 p-2 hover:bg-black hover:bg-opacity-90 cursor-pointer rounded-md hover:text-white">
+							<SortIcon />
+						</div>
+					</Popover.Button>
+					<Transition
+						enter="transition duration-100 ease-out"
+						enterFrom="transform scale-50 opacity-0"
+						enterTo="transform scale-100 opacity-100"
+						leave="transition duration-75 ease-out"
+						leaveFrom="transform scale-100 opacity-100"
+						leaveTo="transform scale-50 opacity-0"
+					>
+						<Popover.Panel className="shadow-sm absolute right-0 z-50">
+							<div className="grid grid-cols-1 md:w-60 w-48 shadow-lg divide-y-2 ">
+								<div
+									onClick={() => {
+										sortByRating();
+									}}
+									className="hover:bg-gray-200 transition ease-in-out duration-300 p-4 cursor-pointer col-span-1 bg-gray-50"
+								>
+									By Rating
+								</div>
+								<div
+									onClick={() => {
+										setSortByCost(true);
+										sortByCostClicked();
+									}}
+									className="hover:bg-gray-200 transition ease-in-out duration-300 p-4 cursor-pointer  col-span-1 bg-gray-50"
+								>
+									By Cost
+								</div>
+							</div>
+
+							<img src="/solutions.jpg" alt="" />
+						</Popover.Panel>
+					</Transition>
+				</Popover>
 				<div
 					id="suggest-area"
-					className="z-50 relative hidden min-h-auto max-h-72 overflow-y-auto shadow-lg bg-white"
+					className=" col-span-9 hidden min-h-auto max-h-72 overflow-y-auto shadow-lg bg-white"
 				>
 					{searches.map((seller) => {
 						return (
@@ -93,27 +151,7 @@ const Search = () => {
 					})}
 				</div>
 			</div>
-			<div
-				id="result-area"
-				className="z-10 relative hidden p-5 grid grid-cols-1 col-span-1 justify-between gap-5 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 "
-			>
-				{
-					<>
-						{filtered.length > 0 &&
-							filtered.map((seller) => {
-								return (
-									<Card
-										restaurantName={seller.restaurantName}
-										imgUrl={seller.restaurantPic}
-										reviews={seller.reviews}
-										costForTwo={seller.costForTwo}
-										sellerId={seller._id}
-									/>
-								);
-							})}
-					</>
-				}
-			</div>
+			<ResultArea filtered={filtered} />
 		</>
 	);
 };
