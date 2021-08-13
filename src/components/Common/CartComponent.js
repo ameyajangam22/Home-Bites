@@ -14,13 +14,7 @@ const CartComponent = ({
 		localStorage.setItem("orders", JSON.stringify(orders));
 		handleUpdate();
 	};
-	const increaseCount = () => {
-		let orders = JSON.parse(localStorage.getItem("orders"));
-		let index = orders.findIndex((el) => el.dishId === dishId);
-		orders[index].count = orders[index];
-		localStorage.setItem("orders", JSON.stringify(orders));
-		handleUpdate();
-	};
+
 	return (
 		<>
 			<div className="col-span-1 text-center font-medium">

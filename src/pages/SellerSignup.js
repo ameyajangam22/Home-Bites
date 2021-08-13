@@ -48,7 +48,7 @@ const SellerSignup = () => {
 	const handleFileChange = (e) => {
 		const file = e.target.files[0];
 		setMedia(file);
-		console.log("signupmedia", media);
+
 		setShowModal(true);
 		previewFile(file);
 	};
@@ -79,9 +79,9 @@ const SellerSignup = () => {
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// console.log(seller);
-		// console.log(media);
-		// console.log("submitmedia", media);
+		//
+		//
+		//
 		setSubmitDisabled(true);
 		setButtonText("Processing...");
 		setShowGear(true);
@@ -102,11 +102,9 @@ const SellerSignup = () => {
 			const response = await axios.post(myConfig.CLOUDINARY_URL, formData);
 
 			if (response) {
-				console.log("Pic uploaded", response);
-
 				let cloudinaryId = response.data.public_id;
 				let img_url = response.data.secure_url;
-				// console.log("img_url", img_url);
+				//
 
 				const res = await fetch("/addSeller", {
 					method: "POST",
@@ -155,7 +153,7 @@ const SellerSignup = () => {
 	useEffect(async () => {
 		const response = await fetch("/me");
 		const data = await response.json();
-		console.log("data recieved", data);
+
 		if (data.user) {
 			toast.error("Illegal Logout", {
 				draggable: true,

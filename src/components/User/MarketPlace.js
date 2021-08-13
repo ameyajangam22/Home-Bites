@@ -18,6 +18,7 @@ const MarketPlace = () => {
 				{sellers.map((seller) => {
 					return (
 						<Card
+							key={seller._id}
 							restaurantName={seller.restaurantName}
 							imgUrl={seller.restaurantPic}
 							reviews={seller.reviews}

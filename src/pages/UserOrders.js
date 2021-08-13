@@ -16,7 +16,7 @@ const UserOrders = () => {
 		}
 		const response2 = await fetch("/getUserOrders");
 		const orders = await response2.json();
-		console.log(orders);
+		orders.reverse();
 		setMyOrders(orders);
 	}, []);
 	return (
@@ -29,6 +29,7 @@ const UserOrders = () => {
 					myOrders.map((order) => {
 						return (
 							<UserOrderComponent
+								key={order._id}
 								restaurantName={order.restaurantName}
 								order_id={order.order_id}
 								dishName={order.dishName}

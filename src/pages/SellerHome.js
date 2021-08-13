@@ -30,7 +30,6 @@ const SellerHome = () => {
 		setCostForTwo(e.target.value);
 	};
 	const handleSubmit = async () => {
-		console.log(newCategory);
 		// add category to DB with empty array
 		const formData = new FormData();
 		formData.append("categoryName", newCategory);
@@ -38,13 +37,11 @@ const SellerHome = () => {
 			method: "POST",
 			body: formData,
 		});
-		console.log("yo");
+
 		setShowModal(false);
 		setCatUpdate(!catUpdate);
 	};
 	const handleSubmitTwo = async () => {
-		console.log("yoo");
-		console.log(costForTwo);
 		const response = await fetch("/updateTwoPrice", {
 			method: "POST",
 			body: JSON.stringify({
@@ -60,33 +57,33 @@ const SellerHome = () => {
 	useEffect(async () => {
 		const response2 = await fetch("/getCategories");
 		const data2 = await response2.json();
-		// console.log("data2", data2.info);
+		//
 		setCategories(data2.info);
 	}, [catUpdate, dishOrCatUpdate]);
 	useEffect(async () => {
 		const response = await fetch("/meSeller");
 		const data = await response.json();
-		console.log("data1", data);
+
 		if (data.message == "ok") {
-			// console.log("datahere");
+			//
 			setUserName(data.data.sellerName);
 			setRestaurantPic(data.data.restaurantPic);
 			setRestaurantName(data.data.restaurantName);
 			setCostForTwo(data.data.costForTwo);
-			console.log("ddd", data.data);
+
 			const response2 = await fetch("/getComments/" + data.data._id);
 			const data2 = await response2.json();
 			setComments(data2);
-			//console.log("data", data);
+			//
 		} else {
-			// console.log("here");
+			//
 			localStorage.setItem("isSellerAuthenticated", "false");
 			history.push("/sellerLogin");
 			toast.error("Illegal login", {
 				draggable: true,
 			});
 		}
-		// console.log("did it ran??");
+		//
 	}, []);
 	useEffect(async () => {
 		let rate = 0;
@@ -100,7 +97,7 @@ const SellerHome = () => {
 	return (
 		<>
 			<SellerNav userName={userName} />
-			{/* console.log(restaurantPic); */}
+
 			<div className="flex bg-gray-900 p-5 md:p-10 gap-4  items-start">
 				<img
 					className="aspect-w-16 aspect-h-9 w-40 md:w-80"
@@ -149,6 +146,7 @@ const SellerHome = () => {
 					{categories.map((category) => {
 						return (
 							<SellerCategory
+								key={category._id}
 								dishes={category.dishes}
 								categoryId={category._id}
 								categoryName={category.categoryName}
@@ -172,7 +170,7 @@ const SellerHome = () => {
 				>
 					<div className="flex flex-col w-4/5 ">
 						<input
-							class="border-2 px-2 mb-10 focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
+							className="border-2 px-2 mb-10 focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
 							type="text"
 							name="category-name"
 							placeholder="Category Name"
@@ -180,7 +178,7 @@ const SellerHome = () => {
 						/>
 						<button
 							onClick={handleSubmit}
-							class=" bg-green-500 text-lg px-8 py-2  top-12 rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
+							className=" bg-green-500 text-lg px-8 py-2  top-12 rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
 						>
 							Submit
 						</button>
@@ -197,7 +195,7 @@ const SellerHome = () => {
 				>
 					<div className="flex flex-col w-4/5 ">
 						<input
-							class="border-2 mb-10 px-2 focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
+							className="border-2 mb-10 px-2 focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
 							type="number"
 							name="twoPrice"
 							placeholder="New Price"
@@ -205,7 +203,7 @@ const SellerHome = () => {
 						/>
 						<button
 							onClick={handleSubmitTwo}
-							class=" bg-green-500 text-lg px-8 py-2  top-12 rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
+							className=" bg-green-500 text-lg px-8 py-2  top-12 rounded-sm hover:bg-green-600 transition ease-in-out duration-300 text-white w-auto bottom-0"
 						>
 							Submit
 						</button>

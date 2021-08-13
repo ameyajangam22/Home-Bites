@@ -17,9 +17,9 @@ const SellerDish = (props) => {
 		props.onChange();
 	};
 	return (
-		<div class="grid grid-cols-5 w-full p-4 justify-center items-center bg-gray-200">
-			<h1 class="col-span-1">{props.foodName}</h1>
-			<h1 class="col-span-1 text-center">{props.foodPrice}</h1>
+		<div className="grid grid-cols-5 w-full p-4 justify-center items-center bg-gray-200">
+			<h1 className="col-span-1">{props.foodName}</h1>
+			<h1 className="col-span-1 text-center">{props.foodPrice}</h1>
 			{props.isVeg ? (
 				<>
 					<div className="ml-5 border-2 border-green-500 flex h-6 w-6 md:h-8 md:w-8 justify-center items-center">
@@ -33,12 +33,12 @@ const SellerDish = (props) => {
 					</div>
 				</>
 			)}
-			<div class="col-span-1 relative">
-				<img class="relative w-24" src={props.foodPicUrl} alt="" />
+			<div className="col-span-1 relative">
+				<img className="relative w-24" src={props.foodPicUrl} alt="" />
 			</div>
 			<div
 				onClick={handleDelete}
-				class="col-span-1 flex cursor-pointer justify-end"
+				className="col-span-1 flex cursor-pointer justify-end"
 			>
 				<DeleteIcon />
 			</div>

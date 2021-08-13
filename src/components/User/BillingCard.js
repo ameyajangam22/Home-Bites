@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 
 import CartComponent from "../Common/CartComponent";
 const BillingCard = ({ finalAmount, setFinalAmount }) => {
-	const [quantity, setQuantity] = useState(0);
-	const [dishId, setDishId] = useState("");
 	const [showBill, setShowBill] = useState(true);
 	const [finalBill, setFinalBill] = useState(0);
 	const [update, setUpdate] = useState(false);
@@ -17,7 +15,6 @@ const BillingCard = ({ finalAmount, setFinalAmount }) => {
 			orders.forEach((order) => (total += order.count * order.dishPrice));
 			setFinalBill(total);
 			setFinalAmount(total);
-			//console.log(orders);
 		} else {
 			setShowBill(false);
 		}
@@ -44,6 +41,7 @@ const BillingCard = ({ finalAmount, setFinalAmount }) => {
 							{orders.map((order) => {
 								return (
 									<CartComponent
+										key={order.order_id}
 										dishName={order.dishName}
 										restaurantName={order.restaurantName}
 										dishPrice={order.dishPrice}

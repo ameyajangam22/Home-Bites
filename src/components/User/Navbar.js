@@ -32,7 +32,6 @@ const Navbar = ({ type, pg, cartCount }) => {
 	}, [type]);
 
 	useEffect(() => {
-		console.log("useEffect ran..");
 		fetch("/me")
 			.then((resp) => {
 				return resp.json();
@@ -107,8 +106,8 @@ const Navbar = ({ type, pg, cartCount }) => {
 								<CartIcon />
 								{cartCount > 0 && (
 									<>
-										<span class="animate-ping absolute right-0 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center"></span>
-										<span class=" absolute right-0 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
+										<span className="animate-ping absolute right-0 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center"></span>
+										<span className=" absolute right-0 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
 											{cartCount}
 										</span>
 									</>
@@ -229,8 +228,8 @@ const Navbar = ({ type, pg, cartCount }) => {
 						<CartIcon />
 						{cartCount > 0 && (
 							<>
-								<span class="animate-ping absolute left-3 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center"></span>
-								<span class=" absolute left-3 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
+								<span className="animate-ping absolute left-3 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center"></span>
+								<span className=" absolute left-3 top-0 rounded-full bg-green-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
 									{cartCount}
 								</span>
 							</>

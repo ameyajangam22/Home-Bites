@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -18,10 +18,6 @@ const CommentComponent = (props) => {
 	const handleReadMore = () => {
 		setShowModal(true);
 	};
-	useEffect(() => {
-		console.log(props);
-		console.log("MA NEW RATING", +props.rating.$numberDecimal);
-	}, []);
 	return (
 		<>
 			<div className="flex">

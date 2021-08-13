@@ -12,11 +12,9 @@ const SellerCompleted = () => {
 		if (data.data.sellerName) setUserName(data.data.sellerName);
 		const response2 = await fetch("/getOrders");
 		const orders2 = await response2.json();
-		// console.log("data2", data2);
 		let newData = orders2.filter((order) => {
 			return order.dispatched == true;
 		});
-		// console.log("sorteddata2", orders2);
 		setOrders(newData);
 	}, []);
 	return (
@@ -29,6 +27,7 @@ const SellerCompleted = () => {
 					orders.map((order) => {
 						return (
 							<OrderComponent
+								key={order._id}
 								customerName={order.customerName}
 								customerAddr={order.customerAddr}
 								order_id={order.order_id}

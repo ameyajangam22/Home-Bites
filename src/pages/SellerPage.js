@@ -36,14 +36,14 @@ const SellerPage = (props) => {
 		setRestaurantPic(data[0].restaurantPic);
 		setCostForTwo(data[0].costForTwo);
 		setMenu(data[0].menu);
-		// console.log(data);
+		//
 
 		fetchComments(sellerId);
 	}, []);
 	useEffect(async () => {
 		const resp = await fetch("/me");
 		const data = await resp.json();
-		console.log("newData", data);
+
 		// SAVE SESSION KARNA HAI IDHAR LOCAL STORAGEEE
 
 		if (data.user) {
@@ -72,7 +72,6 @@ const SellerPage = (props) => {
 			method: "POST",
 			body: formData,
 		});
-		console.log("UPDATED COMMENTS", comments);
 	}, [comments]);
 	return (
 		<>

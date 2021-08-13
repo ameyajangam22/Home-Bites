@@ -9,7 +9,7 @@ router.get("/meSeller", (req, res) => {
 	else res.json({ message: "not ok" });
 });
 router.post("/authLogin", upload.none(), (req, res) => {
-	//console.log("formdata", req.body);
+	//
 	const emailId = req.body.semail;
 	const password = req.body.spassword;
 

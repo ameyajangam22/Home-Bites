@@ -16,10 +16,8 @@ const StepComponent = ({ finalAmount }) => {
 		const { name, value } = e.target;
 		if (name == "phoneNumber") {
 			setPhoneNumber(value);
-			// console.log("phone", phoneNumber);
 		} else if (name == "address") {
 			setAddress(value);
-			// console.log("address", address);
 		}
 	};
 	const handleSave = (e) => {

@@ -2,13 +2,11 @@ const User = require("../models/userModel");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 module.exports = (passport) => {
 	passport.serializeUser(function (user, done) {
-		// console.log("USSSSER", user);
 		done(null, user);
 	});
 
 	passport.deserializeUser(function (id, done) {
 		// User.findById(id, function (err, user) {
-		// console.log("what is being passed", id);
 		done(null, id);
 		// });
 	});
@@ -22,14 +20,14 @@ module.exports = (passport) => {
 				callbackURL: "http://localhost:8000/google/callback",
 			},
 			function (accessToken, refreshToken, profile, cb) {
-				// console.log("Checking for new logged in profile: ", profile);
+				//
 
 				User.findOne({ googleID: profile.id }, async (err, user) => {
 					if (err) throw err;
 
-					// console.log("User is: ", user);
+					//
 					if (user) {
-						// console.log("Inside log in: ", user);
+						//
 						cb(null, user);
 					} else {
 						const newUser = new User({
@@ -40,7 +38,7 @@ module.exports = (passport) => {
 							username: null,
 						});
 						await newUser.save();
-						// console.log("New User saved: ", newUser);
+						//
 						cb(null, newUser);
 					}
 				});

@@ -7,7 +7,7 @@ const cloudinary = require("../../utils/cloudinary");
 /// CATEGORY ROUTES
 router.get("/getCategories", (req, res) => {
 	Seller.find({ _id: req.session.seller._id }, (error, doc) => {
-		// console.log(doc[0].menu);
+		//
 		res.json({ info: doc[0].menu });
 	});
 });
@@ -15,7 +15,6 @@ router.post("/addCategory", upload.none(), (req, res) => {
 	let categoryName = req.body.categoryName;
 	const sellerId = req.session.seller._id;
 	categoryName = categoryName.trim();
-	console.log(categoryName);
 	Seller.findOneAndUpdate(
 		{ _id: sellerId },
 		{
@@ -23,9 +22,7 @@ router.post("/addCategory", upload.none(), (req, res) => {
 		},
 		(error, doc) => {
 			if (error) {
-				console.log("CategoryAdd ERR", error);
 			} else {
-				console.log("Successfully added category");
 				res.send("ok");
 			}
 		}
@@ -36,7 +33,6 @@ router.post("/deleteCategory", upload.none(), (req, res) => {
 	const sellerId = req.session.seller._id;
 	let dishes = req.body.dishes;
 	dishes = dishes.split(",");
-	console.log("dishes in BE", dishes);
 	dishes.forEach(async (dish) => {
 		let rep = await cloudinary.uploader.destroy(dish);
 	});
@@ -47,10 +43,8 @@ router.post("/deleteCategory", upload.none(), (req, res) => {
 		},
 		(error, doc) => {
 			if (error) {
-				console.log(error);
 			} else {
-				console.log("Succesfully deleted category");
-				// console.log(doc);
+				//
 				res.send("ok");
 			}
 		}
@@ -63,7 +57,6 @@ router.post("/addDish", upload.none(), (req, res) => {
 	const foodPrice = req.body.foodPrice;
 	let isVeg = req.body.isVeg;
 	const categoryName = req.body.categoryName;
-	console.log(categoryName);
 	if (isVeg == "veg") {
 		isVeg = true;
 	} else {
@@ -91,9 +84,7 @@ router.post("/addDish", upload.none(), (req, res) => {
 		},
 		(error, doc) => {
 			if (error) {
-				console.log(error);
 			} else {
-				console.log("Dish added successfully");
 				res.send("ok");
 			}
 		}
@@ -124,9 +115,7 @@ router.post("/deleteDish", upload.none(), async (req, res) => {
 		},
 		(error, doc) => {
 			if (error) {
-				console.log(error);
 			} else {
-				console.log("Dish deleted successfully");
 				res.send("Dish deleted successfully");
 			}
 		}
@@ -137,16 +126,14 @@ router.post("/deleteDish", upload.none(), async (req, res) => {
 router.post("/updateTwoPrice", (req, res) => {
 	const price = req.body.twoPrice;
 	const sellerId = req.session.seller._id;
-	console.log(price);
 	Seller.findOneAndUpdate(
 		{ _id: sellerId },
 		{ $set: { costForTwo: price } },
 		{ new: true },
 		(error, doc) => {
 			if (error) {
-				console.log(error);
+				throw error;
 			} else {
-				console.log(doc);
 				req.session.seller.costForTwo = price;
 				res.json(doc);
 			}

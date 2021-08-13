@@ -18,6 +18,7 @@ const CategoryComponent = ({
 					{category.dishes.map((dish) => {
 						return (
 							<DishComponent
+								key={dish._id}
 								cartCount={cartCount}
 								setCartCount={setCartCount}
 								dish={dish}

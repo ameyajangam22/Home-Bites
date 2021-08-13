@@ -13,7 +13,7 @@ const UserOrderComponent = (props) => {
 				<div className="flex">
 					<h2 className="mt-5 text-lg md:text-xl font-bold">
 						Status:{" "}
-						{props.dispatched ? (
+						{!props.dispatched ? (
 							<span className="ml-4 bg-yellow-400 p-3 rounded text-white">
 								<span className="animate-spin">🍳</span> Cooking
 							</span>

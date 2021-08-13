@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { ReactComponent as PlusIcon } from "../../icons/plus-icon.svg";
-import { ReactComponent as MinusIcon } from "../../icons/minus-icon.svg";
+
 const orderid = require("order-id")("mysecret");
 const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 	const [counter, setCounter] = useState(0);
@@ -11,7 +10,7 @@ const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 			orders = JSON.parse(localStorage.getItem("orders"));
 		}
 		let index = orders.findIndex((el) => el.dishId === dish._id);
-		if (index == -1) {
+		if (index === -1) {
 			let newOrderId = orderid.generate();
 			orders.push({
 				order_id: newOrderId,
@@ -34,7 +33,7 @@ const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 				orders = JSON.parse(localStorage.getItem("orders"));
 			}
 			let index = orders.findIndex((el) => el.dishId === dish._id);
-			if (counter == 1) {
+			if (counter === 1) {
 				orders.splice(index, 1);
 			} else {
 				orders[index].count = orders[index].count - 1;
@@ -46,10 +45,9 @@ const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 	};
 
 	useEffect(() => {
-		// console.log(counter);
 		let minus = document.getElementById(dish._id);
 
-		if (counter == 0) {
+		if (counter === 0) {
 			minus.disabled = true;
 		} else {
 			minus.disabled = false;
@@ -63,7 +61,7 @@ const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 				orders = JSON.parse(localStorage.getItem("orders"));
 			}
 			let index = orders.findIndex((el) => el.dishId === dish._id);
-			if (index != -1) {
+			if (index !== -1) {
 				setCounter(orders[index].count);
 			}
 		}
@@ -96,7 +94,7 @@ const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 						src={dish.foodPicUrl}
 						alt=""
 					/>
-					<div class=" grid grid-cols-3 justify-center  w-full items-center relative bottom-3 md:bottom-8 h-4 md:h-8 bg-gray-100 opacity-90 z-10">
+					<div className=" grid grid-cols-3 justify-center  w-full items-center relative bottom-3 md:bottom-8 h-4 md:h-8 bg-gray-100 opacity-90 z-10">
 						<button
 							id={dish._id}
 							onClick={decreaseCount}
@@ -104,7 +102,7 @@ const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 						>
 							-
 						</button>
-						<div class="col-span-1 text-center font-medium md:text-xl text-gray-800">
+						<div className="col-span-1 text-center font-medium md:text-xl text-gray-800">
 							{counter}
 						</div>
 						<button

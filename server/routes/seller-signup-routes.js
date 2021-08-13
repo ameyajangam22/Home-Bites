@@ -27,8 +27,8 @@ router.get("/restNameVerify/:restaurantName", (req, res) => {
 });
 router.post("/uploadPic", upload.none(), async (req, res) => {
 	try {
-		// console.log("req.body", req.body);
-		// console.log("req.file", req.file);
+		//
+		//
 		let formData = new FormData();
 		const mediaString = req.body.restaurantPic;
 		formData.append("file", mediaString);
@@ -38,22 +38,12 @@ router.post("/uploadPic", upload.none(), async (req, res) => {
 			method: POST,
 			body: formData,
 		});
-		console.log(pic.data.url);
-
-		// const result = await cloudinary.uploader.upload(mediaString);
-		// console.log("result cloudinary", result);
-		// const need = {
-		// 	public_id: result.public_id,
-		// 	secure_url: result.secure_url,
-		// };
-		// res.json(need);
 	} catch (err) {
-		console.log("Image err", err);
+		throw error;
 	}
 });
 router.post("/addSeller", async (req, res) => {
 	// Add new seller to DB
-	// console.log("addseller", req.body);
 	const newSeller = new Seller({
 		sellerName: req.body.sname,
 		sellerEmail: req.body.semail,
@@ -66,7 +56,7 @@ router.post("/addSeller", async (req, res) => {
 	});
 	newSeller.sellerPassword = await bcrypt.hash(req.body.spassword, 10);
 	await newSeller.save();
-	console.log("Check DB");
+
 	res.redirect("/sellerLogin");
 });
 module.exports = router;

@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import Cropper from "react-cropper";
 
 const CropImageFoodModal = ({
@@ -13,9 +13,7 @@ const CropImageFoodModal = ({
 	const [cropper, setCropper] = useState();
 	const getCropData = () => {
 		if (cropper) {
-			// console.log("media before crop", media);
 			setMedia(cropper.getCroppedCanvas().toDataURL());
-			// console.log("media after crop", media);
 			setpreviewSource(cropper.getCroppedCanvas().toDataURL());
 			cropper.destroy();
 		}
@@ -67,9 +65,9 @@ const CropImageFoodModal = ({
 									className="text-xl font-bold leading-6 text-gray-900"
 								>
 									Crop image before upload{" "}
-									<span class="text-red-500 ml-2 ">[Recommended]</span>
+									<span className="text-red-500 ml-2 ">[Recommended]</span>
 								</Dialog.Title>
-								<h2 class=" hidden font-medium md:block text-lg relative left-52 top-8 ">
+								<h2 className=" hidden font-medium md:block text-lg relative left-52 top-8 ">
 									Preview
 								</h2>
 								<div className="mt-2  gap-4  grid grid-cols-1 md:grid-cols-2">
@@ -94,7 +92,7 @@ const CropImageFoodModal = ({
 											onInitialized={(cropper) => setCropper(cropper)}
 										/>
 									</div>
-									<p class="md:hidden font-medium text-lg">Preview</p>
+									<p className="md:hidden font-medium text-lg">Preview</p>
 									<div
 										style={{
 											aspectRatio: "32/27",

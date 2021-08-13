@@ -6,14 +6,14 @@ const router = express.Router();
 const Order = require("../models/orderModel");
 const mongoose = require("mongoose");
 router.post("/addOrders", upload.none(), (req, res) => {
-	// console.log(req.body);
+	//
 	let orders = req.body.orders;
 	let finalOrders = [];
 	orders.forEach((order) => {
 		let final_order = JSON.parse(order);
 		finalOrders.push(final_order);
 	});
-	// console.log(finalOrders);
+	//
 	finalOrders.forEach(async (order) => {
 		const newOrder = new Order({
 			order_id: order.order_id,
@@ -29,7 +29,7 @@ router.post("/addOrders", upload.none(), (req, res) => {
 		});
 		await newOrder.save(function (err, doc) {
 			let objId = doc._id;
-			console.log("senku", doc);
+
 			User.findOneAndUpdate(
 				{ email: req.body.customerEmail },
 				{ $push: { orders: mongoose.Types.ObjectId(objId) } },

@@ -31,7 +31,6 @@ const Search = () => {
 	useEffect(async () => {
 		const response = await fetch("/getSellers");
 		const data = await response.json();
-		console.log("seller data receieved", data);
 		setSellers(data);
 		setFiltered(data);
 	}, []);
@@ -61,7 +60,6 @@ const Search = () => {
 			}
 			return b.overallRating.$numberDecimal - a.overallRating.$numberDecimal;
 		});
-		console.log("yoooooooooooo", data);
 		setSortByRating(false);
 		setFiltered(data);
 	};
@@ -76,7 +74,6 @@ const Search = () => {
 			}
 			return a.costForTwo > b.costForTwo ? 1 : -1;
 		});
-		console.log("yoooooooooooo", data);
 		setSortByCost(false);
 		setFiltered(data);
 	};
@@ -90,13 +87,11 @@ const Search = () => {
 		});
 		setSearches(matches);
 	}, [searchInput]);
-	useEffect(() => {
-		console.log("cjange", filtered);
-	}, [filtered]);
+
 	return (
 		<>
 			<Navbar />
-			<div class="z-40 grid grid-cols-10 p-8 items-center gap-3 md:gap-x-10 w-full md:w-2/3 m-auto">
+			<div className="z-40 grid grid-cols-10 p-8 items-center gap-3 md:gap-x-10 w-full md:w-2/3 m-auto">
 				<SearchBar
 					onChange={(val) => {
 						setSearchInput(val);
@@ -150,7 +145,7 @@ const Search = () => {
 				>
 					{searches.map((seller) => {
 						return (
-							<Link to={`/sellerPage/${seller._id}`}>
+							<Link key={seller._id} to={`/sellerPage/${seller._id}`}>
 								<SearchCard
 									restaurantName={seller.restaurantName}
 									imgUrl={seller.restaurantPic}

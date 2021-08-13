@@ -16,7 +16,6 @@ const CommentSection = ({ sellerId, comments, handleUpdate, userEmail }) => {
 	);
 
 	const changePage = ({ selected }) => {
-		console.log("selected", selected);
 		setPageNumber(selected);
 	};
 	useEffect(async () => {
@@ -24,7 +23,6 @@ const CommentSection = ({ sellerId, comments, handleUpdate, userEmail }) => {
 		setPageNumber(0);
 		const count = Math.ceil(comments.length / commentsPerPage);
 		setPageCount(count);
-		console.log("comments in commentsection", comments);
 		// fetchNewComments();
 	}, [comments, pageCount]);
 

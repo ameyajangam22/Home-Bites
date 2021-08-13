@@ -16,7 +16,6 @@ const AddComment = ({ handleAdd, sellerId }) => {
 	const handleSubmit = async () => {
 		let formData = new FormData();
 		setSubmitDisabled(true);
-		console.log("WHAT WAS THE RATING", rating);
 		formData.append("sellerId", sellerId);
 		formData.append("rating", rating);
 		formData.append("comment", comment);
@@ -69,7 +68,6 @@ const AddComment = ({ handleAdd, sellerId }) => {
 								count={5}
 								onChange={(val) => {
 									setRating(val);
-									console.log(rating);
 								}}
 								size={50}
 								activeColor="#ffd700"

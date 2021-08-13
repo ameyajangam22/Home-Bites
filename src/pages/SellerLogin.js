@@ -5,9 +5,9 @@ import { ReactComponent as Logo } from "../logo/hb-logo.svg";
 const SellerLogin = () => {
 	const history = useHistory();
 	const errordiv = document.querySelector("#errorspan");
-	const [emailId, setEmailId] = useState();
-	const [password, setPassword] = useState();
-	const [errorText, setErrorText] = useState();
+	const [emailId, setEmailId] = useState("");
+	const [password, setPassword] = useState("");
+	const [errorText, setErrorText] = useState("");
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
@@ -19,7 +19,7 @@ const SellerLogin = () => {
 			method: "POST",
 		});
 		const data = await response.json();
-		console.log("msg", data.message);
+
 		if (data.message == "ok") {
 			// do something like save session in backend
 			// redirect to seller Dashboard

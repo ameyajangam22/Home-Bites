@@ -1,9 +1,4 @@
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	useLocation,
-} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import SellerHome from "./pages/SellerHome";
 import SellerSignup from "./pages/SellerSignup";
 import Home from "./pages/Home";
@@ -11,7 +6,6 @@ import Search from "./pages/Search";
 import SellerLogin from "./pages/SellerLogin";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useEffect } from "react";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import SellerPage from "./pages/SellerPage";
 import Checkout from "./pages/Checkout";
@@ -22,9 +16,6 @@ import SellerCompleted from "./components/User/SellerCompleted";
 
 function App() {
 	toast.configure();
-	const [isUserAuth, setIsUserAuth] = useState(true);
-	const [isSellerAuth, setIsSellerAuth] = useState(false);
-	const location = useLocation();
 
 	return (
 		<div className="App">
@@ -42,7 +33,6 @@ function App() {
 					path="/sellerSignup"
 					component={SellerSignup}
 					type="user"
-					good={isUserAuth}
 					redirect="/"
 					customMessage="Not allowed. Logout as user first"
 				/>
@@ -50,7 +40,6 @@ function App() {
 					exact
 					path="/seller"
 					component={SellerHome}
-					good={isSellerAuth}
 					type="seller"
 					redirect="/sellerLogin"
 					customMessage="Login as seller first"

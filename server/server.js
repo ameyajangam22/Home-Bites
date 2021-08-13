@@ -72,7 +72,6 @@ app.post("/razorpay/:finalAmount", async (req, res) => {
 		payment_capture,
 	};
 	const response = await razorpay.orders.create(options);
-	console.log(response);
 	res.json({
 		id: response.id,
 		currency: response.currency,
@@ -84,19 +83,19 @@ app.post("/razorpay/:finalAmount", async (req, res) => {
 
 // app.post("/verification", (req, res) => {
 // 	const secret = process.env.RAZORPAY_SECRET_WBHK;
-// 	// console.log(req.body);
+// 	//
 
 // 	const crypto = require("crypto");
 // 	const shasum = crypto.createHmac("sha256", secret);
 // 	shasum.update(JSON.stringify(req.body));
 // 	const digest = shasum.digest("hex");
 
-// 	console.log(digest, req.headers["x-razorpay-signature"]);
+//
 // 	if (digest === req.headers["x-razorpay-signature"]) {
 // 		//process it
-// 		console.log("Request is legit");
+//
 // 	} else {
-// 		console.log("dont match");
+//
 // 		res.status(401).send("not ok");
 // 	}
 // 	res.send({ status: "ok" });

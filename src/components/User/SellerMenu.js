@@ -1,16 +1,17 @@
 import CategoryLink from "../Common/CategoryLink";
 import CategoryComponent from "../Common/CategoryComponent";
 const SellerMenu = ({ menu, cartCount, setCartCount, restaurantName }) => {
-	// console.log(menu);
 	return (
 		<>
-			<div class="grid grid-cols-3">
+			<div className="grid grid-cols-3">
 				<div
 					id="categories"
 					className=" overflow-y-auto hidden col-span-1 border-r-2 md:col-span-1 md:block"
 				>
 					{menu.map((item) => {
-						return <CategoryLink>{item.categoryName}</CategoryLink>;
+						return (
+							<CategoryLink key={item._id}>{item.categoryName}</CategoryLink>
+						);
 					})}
 				</div>
 				<div
@@ -20,6 +21,7 @@ const SellerMenu = ({ menu, cartCount, setCartCount, restaurantName }) => {
 					{menu.map((category) => {
 						return (
 							<CategoryComponent
+								key={category._id}
 								cartCount={cartCount}
 								setCartCount={setCartCount}
 								category={category}

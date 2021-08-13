@@ -2,9 +2,6 @@ import { useEffect } from "react";
 import Card from "../Common/Card";
 
 const ResultArea = ({ filtered }) => {
-	useEffect(() => {
-		console.log("NEW FILTER", filtered);
-	}, [filtered]);
 	return (
 		<div
 			id="result-area"
@@ -16,6 +13,7 @@ const ResultArea = ({ filtered }) => {
 						filtered.map((seller) => {
 							return (
 								<Card
+									key={seller._id}
 									restaurantName={seller.restaurantName}
 									imgUrl={seller.restaurantPic}
 									reviews={seller.reviews}

@@ -41,7 +41,6 @@ const SellerCategory = (props) => {
 
 		formData.append("categoryName", categoryName);
 
-		console.log(dishes);
 		let dishArray = [];
 		dishes.forEach((dish) => dishArray.push(dish.dishCloudinaryId));
 		formData.append("dishes", dishArray);
@@ -66,8 +65,6 @@ const SellerCategory = (props) => {
 		setShowCropperModal(true);
 	};
 	const handleSubmit = async () => {
-		console.log(dish);
-
 		// UPLOAD IMAGE TO CLOUDINARY
 		setSubmitDisabled(true);
 		setButtonText("Processing");
@@ -106,21 +103,21 @@ const SellerCategory = (props) => {
 	}, [submitDisabled]);
 	return (
 		<>
-			<div class="w-full flex justify-between p-2 px-5 items-center hover:bg-gray-100 transition ease-in-out duration-200  mt-1 border-1 border-black text-lg font-bold bg-white">
+			<div className="w-full flex justify-between p-2 px-5 items-center hover:bg-gray-100 transition ease-in-out duration-200  mt-1 border-1 border-black text-lg font-bold bg-white">
 				{props.categoryName}
-				<div class="flex flex-row gap-4 items-center">
+				<div className="flex flex-row gap-4 items-center">
 					<div
-						class="cursor-pointer"
+						className="cursor-pointer"
 						onClick={() => {
 							setShowModal(true);
 						}}
 					>
 						<PlusIcon />
 					</div>
-					<div class="cursor-pointer" onClick={handleDelete}>
+					<div className="cursor-pointer" onClick={handleDelete}>
 						<DeleteIcon />
 					</div>
-					<div class="cursor-pointer" onClick={handleClick}>
+					<div className="cursor-pointer" onClick={handleClick}>
 						{arrowDir == "down" ? <DownArrow /> : <UpArrow />}
 					</div>
 				</div>
@@ -137,16 +134,17 @@ const SellerCategory = (props) => {
 			>
 				{dishes.length > 0 && (
 					<div className="grid grid-cols-5  w-full font-bold p-4 justify-around bg-gray-200">
-						<h1 class="text-center col-span-1">Name</h1>
-						<h1 class="text-center col-span-1 ">Price</h1>
-						<h1 class="text-center col-span-1">Veg?</h1>
-						<h1 class="text-center col-span-1 mr-10 ">Image</h1>
+						<h1 className="text-center col-span-1">Name</h1>
+						<h1 className="text-center col-span-1 ">Price</h1>
+						<h1 className="text-center col-span-1">Veg?</h1>
+						<h1 className="text-center col-span-1 mr-10 ">Image</h1>
 					</div>
 				)}
 
 				{dishes.map((dish) => {
 					return (
 						<SellerDish
+							key={dish._id}
 							categoryName={props.categoryName}
 							dishId={dish._id}
 							foodName={dish.foodName}
@@ -174,21 +172,21 @@ const SellerCategory = (props) => {
 				>
 					<div className="flex flex-col gap-3  relative w-4/5 ">
 						<input
-							class="border-2 px-2  focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
+							className="border-2 px-2  focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
 							type="text"
 							name="foodName"
 							placeholder="Dish Name"
 							onChange={handleChange}
 						/>
 						<input
-							class="border-2 px-2 focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
+							className="border-2 px-2 focus:border-blue-400 h-10 rounded-md outline-none shadow-sm"
 							type="number"
 							name="foodPrice"
 							placeholder="Dish Price"
 							onChange={handleChange}
 						/>
-						<div class="flex gap-10 relative top-1 justify-center items-center">
-							<div class="flex gap-4 justify-center items-center">
+						<div className="flex gap-10 relative top-1 justify-center items-center">
+							<div className="flex gap-4 justify-center items-center">
 								<label for="isVeg">Veg</label>
 								<input
 									onChange={handleChange}
@@ -197,7 +195,7 @@ const SellerCategory = (props) => {
 									value="veg"
 								/>
 							</div>
-							<div class="flex gap-4 justify-center items-center">
+							<div className="flex gap-4 justify-center items-center">
 								<label for="isVeg">Non Veg</label>
 								<input
 									onChange={handleChange}

@@ -8,21 +8,21 @@ const SearchBar = (props) => {
 	};
 	return (
 		<div className="col-span-9">
-			<div class="bg-white flex items-center rounded-md border-2 border-gray-200">
+			<div className="bg-white flex items-center rounded-md border-2 border-gray-200">
 				<input
-					class="rounded-l-md w-full px-6 text-gray-700 leading-tight 
+					className="rounded-l-md w-full px-6 text-gray-700 leading-tight 
                     focus:outline-none"
 					id="search"
 					type="text"
 					placeholder="Search"
 					onChange={handleChange}
 				></input>
-				<div class="p-4">
+				<div className="p-4">
 					<button
 						onClick={() => {
 							props.handleClick(true);
 						}}
-						class="bg-black text-white rounded-md p-2 hover:bg-gray-700
+						className="bg-black text-white rounded-md p-2 hover:bg-gray-700
                     transition ease-in-out duration-200 focus:outline-none w-14 h-14 flex items-center justify-center"
 					>
 						<SearchIcon />

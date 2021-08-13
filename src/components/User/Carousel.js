@@ -11,8 +11,6 @@ import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
 import "swiper/components/scrollbar/scrollbar.scss";
 
-import { Link, useHistory } from "react-router-dom";
-
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 const Carousel = () => {
 	return (
@@ -24,8 +22,6 @@ const Carousel = () => {
 					autoplay={{ delay: 3000 }}
 					pagination={{ clickable: true }}
 					scrollbar={{ draggable: true }}
-					onSwiper={(swiper) => console.log(swiper)}
-					onSlideChange={() => console.log("slide change")}
 				>
 					<SwiperSlide className="flex cursor-pointer justify-center items-center">
 						<img

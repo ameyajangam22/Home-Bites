@@ -7,7 +7,7 @@ router.get(
 );
 
 const isLoggedIn = (req, res, next) => {
-	// console.log("req.user", req.user);
+	//
 	if (req.user) {
 		next();
 	} else {
@@ -16,7 +16,7 @@ const isLoggedIn = (req, res, next) => {
 	}
 };
 router.get("/me", (req, res) => {
-	// console.log("mai kya bhej raha hu", req.user);
+	//
 	res.json({ user: req.user });
 });
 router.get(
@@ -26,7 +26,7 @@ router.get(
 	}),
 	function (req, res) {
 		// Successful authentication, redirect home.
-		console.log("req.user [success]", req.user);
+
 		res.redirect("http://localhost:3000");
 	}
 );
