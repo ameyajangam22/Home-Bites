@@ -15,6 +15,7 @@ const DishComponent = ({ dish, cartCount, setCartCount, restaurantName }) => {
 			orders.push({
 				order_id: newOrderId,
 				dishPic: dish.foodPicUrl,
+				dishId: dish._id,
 				dishName: dish.foodName,
 				restaurantName: restaurantName,
 				dishPrice: dish.foodPrice,
